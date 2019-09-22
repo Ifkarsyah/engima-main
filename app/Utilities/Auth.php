@@ -3,12 +3,19 @@
 
 namespace App\Utilities;
 
+use App\Models\SingleUser;
 
 class Auth
 {
-
-    public static function isAuthenticated()
+    public static function getUserFromCookies()
     {
-        return false;
+        if (2 === 2)
+        {
+            return new SingleUser();
+        }
+        else
+        {
+            return null;
+        }
     }
 }

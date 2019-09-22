@@ -18,7 +18,17 @@ class Database
     private $conn;
 
     private $queryResult;
+
     private $queryResultCount;
+
+    public function getQueryResult()
+    {
+        return $this->queryResult;
+    }
+    public function getQueryResultCount()
+    {
+        return $this->queryResultCount;
+    }
 
     /**
      * Database constructor.
