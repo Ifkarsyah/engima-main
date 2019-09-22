@@ -3,21 +3,26 @@
 namespace App\Controllers;
 
 use App\Core\BaseController;
+use App\Utilities\Auth;
+
 
 class Home extends BaseController
 {
     public function index()
     {
-        $data['pageTitle'] = 'Home';
-        $data['fromModel'] = $this->getModel('PageHome')->sayHello();
+        // Step 1: Dependencies
+        $this->view->addCSS('css/index.css');
+        $this->view->addJS('js/index.js');
+        $this->useModel('User');
 
-        $this->renderView('templates/header', $data);
-        $this->renderView('home/index', $data);
-        $this->renderView('templates/footer');
-    }
+        // Step 2: Add Data
+        $this->view->data['pageTitle'] = 'Home';    // Step 2.1: Set pageTitle
+        self::$userLoggedIn = Auth::getUserFromCookies(); // Step 2.2: Result = null | UserOne()
 
-    public function page()
-    {
-        echo 'hia';
+        // Step 3: Render
+        $this->view->render('templates/header');
+        $this->view->render('templates/navbar');
+        $this->view->render('home/index');
+        $this->view->render('templates/footer');
     }
 }

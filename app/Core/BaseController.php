@@ -4,12 +4,16 @@ namespace App\Core;
 
 class BaseController
 {
-    public function renderView($view, $data = [])
+    protected $view = null;
+    protected $model = null;
+    public static $userLoggedIn = null;
+
+    public function __construct()
     {
-        require_once '../app/Views/' . $view . '.php';
+        $this->view = new BaseView();
     }
 
-    public function getModel($model)
+    public function useModel($model)
     {
         require_once '../app/Models/' . $model . '.php';
         $classModel = 'App\Models\\' . $model;
