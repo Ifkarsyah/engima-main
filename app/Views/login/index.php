@@ -4,4 +4,4 @@
     Password: <input type="password" name="password"><br>
     <input type="submit">
 </form>
-<p>Don't have an acount? <a href="<?php echo URL_BASE_PUBLIC; ?>register/index">Register Here</a> </p>
+<p>Don't have an account? <a href="<?php echo URL_BASE_PUBLIC; ?>register/index">Register Here</a> </p>

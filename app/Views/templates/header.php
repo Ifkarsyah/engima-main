@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <?php echo $this->pageTitle; ?> </title>
-    <?= $this->getCSS(); ?>
+    <title> <?php echo $this->data['pageTitle']; ?> </title>
+    <?= $this->getIncludeCSS(); ?>
 </head>
 <body>
