@@ -4,9 +4,11 @@ namespace App\Core;
 
 class BaseController
 {
-    public function renderView($view, $data = [])
+    protected $view = null;
+
+    public function __construct()
     {
-        require_once '../app/Views/' . $view . '.php';
+        $this->view = new BaseView();
     }
 
     public function getModel($model)

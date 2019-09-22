@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> <? echo data['pageTitle']; ?> </title>
+    <title> <?php echo $this->pageTitle; ?> </title>
+    <?= $this->getCSS(); ?>
 </head>
 <body>

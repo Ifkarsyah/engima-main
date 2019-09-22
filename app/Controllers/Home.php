@@ -9,15 +9,10 @@ class Home extends BaseController
     public function index()
     {
         $data['pageTitle'] = 'Home';
-        $data['fromModel'] = $this->getModel('PageHome')->sayHello();
+        $data['fromModel'] = $this->getModel('Movie')->sayHello();
 
-        $this->renderView('templates/header', $data);
-        $this->renderView('home/index', $data);
-        $this->renderView('templates/footer');
-    }
-
-    public function page()
-    {
-        echo 'hia';
+        $this->view->render('templates/header', $data);
+        $this->view->render('home/index', $data);
+        $this->view->render('templates/footer');
     }
 }

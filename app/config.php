@@ -1,0 +1,8 @@
+<?php
+
+define('URL_BASE_PUBLIC', 'http://localhost/tugas-besar-1-2019/public/');
+
+define('DB_HOST', 'localhost');
+define('DB_USER', 'root');
+define('DB_PASS', '');
+define('DB_NAME', 'engima');
