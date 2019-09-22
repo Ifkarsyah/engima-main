@@ -5,20 +5,17 @@ namespace App\Controllers;
 
 
 use App\Core\BaseController;
-use App\Utilities;
+use App\Utilities\Redirect;
 
 class Logout extends BaseController
 {
     public function index()
     {
-        if (Utilities\Auth::isAuthenticated())
-        {
-            // TODO : destroy cookies
-            Utilities\Redirect::to(URL_BASE_PUBLIC . '/home/index');
-        }
-        else
-        {
-            $this->view->render('login/index');
-        }
+        // Step 1: Destroy Cookies
+        unset($_COOKIE['user_cookies']);
+        BaseController::$userLoggedIn = null;
+
+        // Step 2: Redirect Home non-login
+        Redirect::to(URL_BASE_PUBLIC . 'login');
     }
 }

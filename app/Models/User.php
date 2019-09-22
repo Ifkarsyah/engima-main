@@ -8,26 +8,30 @@ use App\Core\BaseModel;
 
 class User extends BaseModel
 {
-
-    public function createCookie($username)
+    // Used in : View Login
+    public function isUserExists($username, $password)
     {
-
+        return true;
     }
 
-    public function isExists($username, $password)
+    // Used in : View Register
+    public function isUsernameExists($username)
     {
-        // TODO: SELECT * FROM user_cookies WHERE username=?
         return false;
     }
 
-    public function isCookieExists()
+    // Used in : View Register
+    public function insertUserToDB($username, $email, $phone, $password, $profilePic)
     {
-        // TODO: SELECT * FROM user_cookies WHERE username=?
-        return false;
+        return true;
     }
 
-    public function setCookie($username)
+    // Used in : Utilities
+    public function getUserByID($id = 0)
     {
-
+        return array(
+            'username' => 'tobey',
+            'profilePic' => 'http://www.gstatic.com/tv/thumb/persons/74064/74064_v9_bb.jpg',
+        );
     }
 }
