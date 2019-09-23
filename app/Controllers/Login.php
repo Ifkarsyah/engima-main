@@ -11,11 +11,11 @@ class Login extends BaseController
     public function index()
     {
         // Step 1: Dependencies
-        $this->view->addCSS('css/index.css');
-        $this->view->addJS('js/index.js');
+        $this->view->addCSS('css/login.css');
+//        $this->view->addJS('js/index.js');
 
         // Step 2: Add Data
-        $this->view->data['pageTitle'] = 'Home';    // Step 2.1: Set pageTitle
+        $this->view->data['pageTitle'] = 'Login';    // Step 2.1: Set pageTitle
         self::$userLoggedIn = Auth::getUserFromCookies(); // Step 2.2: Result = null | UserOne()
 
         // Step 3: Render
