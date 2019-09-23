@@ -11,7 +11,7 @@ class Home extends BaseController
     public function index()
     {
         // Step 1: Dependencies
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/home.css');
         $this->view->addJS('js/index.js');
         $this->useModel('User');
 
