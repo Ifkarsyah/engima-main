@@ -2,11 +2,12 @@
 
 namespace App\Core;
 
+use App\Utilities\Redirect;
+
 class BaseController
 {
     protected $view = null;
     protected $model = null;
-    public static $userLoggedIn = null;
 
     public function __construct()
     {
@@ -18,5 +19,16 @@ class BaseController
         require_once '../app/Models/' . $model . '.php';
         $classModel = 'App\Models\\' . $model;
         return new $classModel;
+    }
+
+    public function getUserIDFromCookies()
+    {
+        $userID = $this->useModel('User')->getUserIDFromCookies($_COOKIE['user']);
+        if (isset($userID) && $userID > 0)
+        {
+            return $userID;
+        }
+        Redirect::to(URL_BASE_PUBLIC . 'login');
+        die();
     }
 }
