@@ -3,24 +3,20 @@
 namespace App\Controllers;
 
 use App\Core\BaseController;
-use App\Utilities\Auth;
 use App\Utilities\Redirect;
 
 class Login extends BaseController
 {
     public function index()
     {
-        // Step 1: Dependencies
+        // Step 1: Add data
+        $this->view->data['pageTitle'] = 'Login';
+
+        // Step 2: Render
         $this->view->addCSS('css/login.css');
-//        $this->view->addJS('js/index.js');
-
-        // Step 2: Add Data
-        $this->view->data['pageTitle'] = 'Login';    // Step 2.1: Set pageTitle
-        self::$userLoggedIn = Auth::getUserFromCookies(); // Step 2.2: Result = null | UserOne()
-
-        // Step 3: Render
+        $this->view->addJS('js/index.js');
         $this->view->render('templates/header');
-        $this->view->render('login/index');
+        $this->view->render('login');
         $this->view->render('templates/footer');
     }
 
