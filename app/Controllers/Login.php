@@ -45,8 +45,12 @@ class Login extends BaseController
         $user = $this->useModel('Login')->loginGetUser($email, $password);
         if ($user)
         {
-            setcookie(COOKIE_USER, $user['username'], COOKIE_EXPIRE, '/');
-            $this->useModel('Login')->insertNewCookies($user['id'], $user['username']);
+            $username = $user->username;
+            $hashedUsername  = password_hash($username, PASSWORD_BCRYPT);
+
+            $userID = $user->id;
+            setcookie(COOKIE_USER, $hashedUsername, COOKIE_EXPIRE, '/');
+            $this->useModel('Login')->insertNewCookies($hashedUsername, $userID);
             Redirect::to('home/index');
         }
         else
