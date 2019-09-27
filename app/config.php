@@ -7,4 +7,7 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 define('DB_NAME', 'engima');
 
+define('COOKIE_USER', 'userLogin');
+
 date_default_timezone_set('Asia/Jakarta');
+

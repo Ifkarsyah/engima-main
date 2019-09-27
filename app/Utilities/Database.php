@@ -63,7 +63,7 @@ class Database
      * Execute sql query
      * @param string $sqlStatement
      * @param array $params
-     * @example $db->execute('SELECT * FROM users WHERE user.id=?', [1])
+     * @example $db->execute('SELECT * FROM users WHERE user.id = :id', ['id' => $id])
      * @return $this
      */
     public function execute($sqlStatement, array $params = [])
