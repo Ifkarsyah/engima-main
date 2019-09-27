@@ -105,6 +105,7 @@ body {
     float: left;
     border-radius: 7px;
 }
+
 #star {
     width: 20%;
     height: 7%;
@@ -116,14 +117,6 @@ body {
     font-weight: bold;
 }
 
-#result {
-    /*float: center;*/
-    height: 1000px;
-    margin: 0 215px 0;
-    width:60%;
-    background-color: white;
-    padding: 5% 5% 2%;
-}
 
 .flex-container{
     display: flex;
