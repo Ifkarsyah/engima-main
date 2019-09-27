@@ -5,8 +5,15 @@ namespace App\Controllers;
 use App\Core\BaseController;
 
 
+/**
+ * Class Home
+ * @package App\Controllers
+ */
 class Home extends BaseController
 {
+    /**
+     *
+     */
     public function index()
     {
         // Step 1: Check If logged in

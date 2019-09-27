@@ -5,12 +5,18 @@ namespace App\Core;
 use App\Controllers;
 use Exception;
 
-
+/**
+ * Class App
+ * @package App\Core
+ */
 class App {
     private $controller = 'Login';
     private $method = 'index';
     private $params = [];
 
+    /**
+     * App constructor.
+     */
     public function __construct()
     {
         $this->parseURL();

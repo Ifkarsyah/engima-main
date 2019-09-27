@@ -6,8 +6,16 @@ namespace App\Models;
 
 use App\Core\BaseModel;
 
+/**
+ * Class Booking
+ * @package App\Models
+ */
 class Booking extends BaseModel
 {
+    /**
+     * @param $scheduleID
+     * @return array
+     */
     public function getAvailableSeatsByScheduleID($scheduleID)
     {
         $dbResult = $this->db->execute(
@@ -24,6 +32,10 @@ class Booking extends BaseModel
         return $seatConditions;
     }
 
+    /**
+     * @param $scheduleID
+     * @return mixed
+     */
     public function getScheduleInfoByID($scheduleID){
         $dbResultScheduleInfo = $this->db->execute(
           "SELECT * FROM schedules WHERE id=$scheduleID"

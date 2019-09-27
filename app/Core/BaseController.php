@@ -4,16 +4,27 @@ namespace App\Core;
 
 use App\Utilities\Redirect;
 
+/**
+ * Class BaseController
+ * @package App\Core
+ */
 class BaseController
 {
     protected $view = null;
     protected $model = null;
 
+    /**
+     * BaseController constructor.
+     */
     public function __construct()
     {
         $this->view = new BaseView();
     }
 
+    /**
+     * @param $model
+     * @return mixed
+     */
     public function useModel($model)
     {
         require_once '../app/Models/' . $model . '.php';
@@ -21,11 +32,14 @@ class BaseController
         return new $classModel;
     }
 
+    /**
+     * @return mixed
+     */
     public function getUserIDFromCookies()
     {
         if (!isset($_COOKIE[COOKIE_USER]))
         {
-            Redirect::to(URL_BASE_PUBLIC . 'login');
+            Redirect::to( 'login');
             die();
         }
         $userID = $this->useModel('User')->getUserIDFromCookies($_COOKIE[COOKIE_USER]);
@@ -33,7 +47,7 @@ class BaseController
         {
             return $userID;
         }
-        Redirect::to(URL_BASE_PUBLIC . 'login');
+        Redirect::to('login');
         die();
     }
 }
