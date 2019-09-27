@@ -34,4 +34,11 @@ class Booking extends BaseController
         $this->view->render('booking/index');
         $this->view->render('templates/footer');
     }
+
+    public function book($scheduleID, $seatNumber)
+    {
+        $userID = $this->getUserIDFromCookies();
+        $this->useModel('Booking')->bookSeat($userID, $scheduleID, $seatNumber);
+    }
+
 }

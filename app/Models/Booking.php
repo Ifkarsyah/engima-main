@@ -55,4 +55,34 @@ class Booking extends BaseModel
 
         return $scheduleInfo;
     }
+
+    /**
+     * @param $userID
+     * @param $scheduleID
+     * @param $seatNumber
+     */
+    public function bookSeat($userID, $scheduleID, $seatNumber)
+    {
+        // Step 1: Reduce table schedule
+        $this->db->execute(
+            "UPDATE schedules 
+                         SET available_seats=available_seats-1
+                         WHERE id=:scheduleID",
+            ['scheduleID' => $scheduleID]
+        );
+
+        // Step 2: Add table seats
+        $this->db->execute(
+            "INSERT INTO seats (schedule_id, seat_number) 
+                         VALUES (:scheduleID, :seatNumber)",
+            [':scheduleID' => $scheduleID, ':seatNumber' => $seatNumber]
+        );
+
+        // Step 3: Add transaction
+        $this->db->execute(
+          "INSERT INTO transactions (schedule_id, user_id, seat_number, price) 
+                       VALUES (:scheduleID, :userID, :seatNumber, 45000)",
+            ['scheduleID' => $scheduleID, 'userID' => $userID, 'seatNumber' => $seatNumber]
+        );
+    }
 }
