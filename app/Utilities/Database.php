@@ -21,10 +21,17 @@ class Database
 
     private $queryResultCount;
 
+    /**
+     * @return mixed
+     */
     public function getQueryResult()
     {
         return $this->queryResult;
     }
+
+    /**
+     * @return mixed
+     */
     public function getQueryResultCount()
     {
         return $this->queryResultCount;

@@ -4,6 +4,10 @@
 namespace App\Core;
 
 
+/**
+ * Class BaseView
+ * @package App\Core
+ */
 class BaseView
 {
     public $data = [];

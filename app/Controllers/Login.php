@@ -5,13 +5,20 @@ namespace App\Controllers;
 use App\Core\BaseController;
 use App\Utilities\Redirect;
 
+/**
+ * Class Login
+ * @package App\Controllers
+ */
 class Login extends BaseController
 {
+    /**
+     *
+     */
     public function index()
     {
         if (isset($_COOKIE[COOKIE_USER]))
         {
-            Redirect::to(URL_BASE_PUBLIC . 'home/index');
+            Redirect::to('home/index');
             die();
         }
         // Step 1: Add data
@@ -25,6 +32,9 @@ class Login extends BaseController
         $this->view->render('templates/footer');
     }
 
+    /**
+     *
+     */
     public function proceed()
     {
         // Step 1: Get data from POST
@@ -32,16 +42,16 @@ class Login extends BaseController
         $password = $_POST['password'];
 
         // Step 2: Check in Database
-        $user = $this->useModel('User')->loginGetUser($email, $password);
+        $user = $this->useModel('Login')->loginGetUser($email, $password);
         if ($user)
         {
-            setcookie(COOKIE_USER, $user['username'], time() + 3600, '/');
-            $this->useModel('User')->insertNewCookies($user['id'], $user['username']);
-            Redirect::to(URL_BASE_PUBLIC . 'home/index');
+            setcookie(COOKIE_USER, $user['username'], COOKIE_EXPIRE, '/');
+            $this->useModel('Login')->insertNewCookies($user['id'], $user['username']);
+            Redirect::to('home/index');
         }
         else
         {
-            Redirect::to(URL_BASE_PUBLIC . 'login/index');
+            Redirect::to( 'login/index');
         }
     }
 }

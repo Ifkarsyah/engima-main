@@ -1,95 +1,18 @@
-<div class="nav">
-    <ul>
-        <li><a class="active" href="#home"><engima><eng>Engi</eng>ma</engima></a></li>
-        <li><input type="text2" placeholder="Search movie" name="search2"></li>
-        <li style="float:right"><a href = "#home"><navbar>Logout</navbar></a></li>
-        <li style="float:right"><a href = "#home"><navbar>Transaction</navbar></a></li>
-    </ul>
-</div>
-
 <div id="result">
-    <h1>Hello, Random!</h1>
+    <h1>Hello, <?php echo $this->data['username']; ?></h1>
     <h3>Now Playing</h3>
     <div class="flex-container">
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
+        <?php foreach ($this->data['movies'] as $movie): ?>
             <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
+                <a href="<? echo URL_BASE_PUBLIC . 'detail/' . $movie->id; ?>">
+                    <img id="moviepic" src="<? echo $movie->poster; ?>" alt="<? echo $movie->title; ?>">
+                </a>
+                <p id="movietitle"><? echo $movie->title; ?></p>
+                <div>
+                    <img id="star" src="https://www.pinpng.com/pngs/m/1-18185_small-yellow-star-clipart-yellow-star-clipart-hd.png" alt="star">
+                    <p><? echo $movie->rating; ?></p>
+                </div>
             </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
-        <div>
-            <img id="moviepic" src="cap_marv.jpg" alt="cap_marv">
-            <p id="movietitle">Captain Marvel</p>
-            <div>
-                <img id="star" src="star.jpg" alt="star">
-                <p>7,5</p>
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>

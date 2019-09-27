@@ -6,8 +6,15 @@ namespace App\Controllers;
 
 use App\Core\BaseController;
 
+/**
+ * Class Booking
+ * @package App\Controllers
+ */
 class Booking extends BaseController
 {
+    /**
+     * @param $scheduleID
+     */
     public function index($scheduleID)
     {
         // Step 1: Check If logged in
