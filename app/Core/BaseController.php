@@ -23,7 +23,12 @@ class BaseController
 
     public function getUserIDFromCookies()
     {
-        $userID = $this->useModel('User')->getUserIDFromCookies($_COOKIE['user']);
+        if (!isset($_COOKIE[COOKIE_USER]))
+        {
+            Redirect::to(URL_BASE_PUBLIC . 'login');
+            die();
+        }
+        $userID = $this->useModel('User')->getUserIDFromCookies($_COOKIE[COOKIE_USER]);
         if (isset($userID) && $userID > 0)
         {
             return $userID;
