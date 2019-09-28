@@ -1,5 +1,5 @@
 /* styling */
-#movietitle {
+#movie-title {
     font-family: Arial, sans-serif ;
     font-size: 24px;
     font-weight: bold;
@@ -11,10 +11,6 @@
     font-size: 16px;
     margin: 0 0 10px;
     color: gray;
-}
-
-p {
-    word-spacing: 5px;
 }
 
 /* back button to previous page */
@@ -64,11 +60,11 @@ hr{
     border-right: 1px solid gray;
 }
 
-.flex-container>.seat{
+.flex-container>.seat-chair{
     width: 25px;
     height: 25px;
     margin: 10px 10px 10px;
-    font-size: 16px;
+    font-size: 14px;
     border-width: 1px;
     border-style: solid;
     border-radius: 5px;
@@ -80,7 +76,9 @@ hr{
     border-color: rgb(0,178,190);
 }
 
-.flex-container>.not-booked:hover{
+
+
+.flex-container>.not-booked:hover, .seat-active{
     color: white;
     background-color:rgb(0,178,190) ;
 }
@@ -88,6 +86,7 @@ hr{
 .flex-container>.booked{
     color: rgb(128,128,128);
     background-color: lightgrey;
+    cursor: not-allowed;
 }
 
 .flex-container>.screen{
@@ -149,7 +148,7 @@ hr{
 }
 
 /* Buy ticket button */
-button{
+#buy-btn {
     float: right;
     background-color: rgb(0,178,190);
     color: white;
@@ -161,7 +160,7 @@ button{
     border-radius: 7px;
 }
   
-button:hover {
+#buy-btn:hover {
     opacity: 0.5;
 }
 

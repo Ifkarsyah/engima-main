@@ -2,22 +2,24 @@
 
     <a href="#" class="previous">&#8249;</a>
     <div class="mov-schedule">
-        <div id="movietitle"><? echo $this->data['bookInfo']['movie'];?></div>
+        <div id="movie-title"><? echo $this->data['bookInfo']['movie'];?></div>
         <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
     </div>
     <hr>
 
     <div>
-        <div class="flex-container">
-            <? for($i = 1; $i <= 30; $i++) :?>
-                <?if ($this->data['seats'][$i]):?>
-                    <button class="seat booked"> <? echo $i; ?> </button>
-                <? else: ?>
-                    <button class="seat not-booked"> <? echo $i; ?> </button>
-                <? endif; ?>
-            <? endfor; ?>
+
+            <div class="flex-container">
+                <? for($i = 1; $i <= 30; $i++) :?>
+                    <?if ($this->data['seats'][$i]):?>
+                        <button class="seat-chair booked" value="<? echo $i; ?>"> <? echo $i; ?> </button>
+                    <? else: ?>
+                        <button class="seat-chair not-booked" value="<? echo $i; ?>"> <? echo $i; ?> </button>
+                    <? endif; ?>
+                <? endfor; ?>
                 <div class="screen">Screen</div>
-        </div>
+            </div>
+
 
 
         <div class="confirmation">
@@ -31,7 +33,7 @@
                 <div id="price">Rp 45000</div>
             </div>
 
-            <button id="buy-btn">Buy Ticket</button>
+            <button id="buy-btn" form="seat-selection">Buy Ticket</button>
 
 
             <div id="buy-modal" class="modal">
@@ -46,5 +48,4 @@
 
         </div>
     </div>
-
 </div>
