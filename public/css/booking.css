@@ -41,7 +41,7 @@ a {
     float: left;
 }
 
-.movschedule {
+.mov-schedule {
     margin: -145px 70px 0px;
     display: grid;
     height: auto;
@@ -58,52 +58,36 @@ hr{
     display: flex;
     flex-wrap: wrap;
     flex-flow: row wrap;
-    /* height: auto; */
     width: 45%;
     text-align: center;
     margin: 0 0 0 20px;
     border-right: 1px solid gray;
 }
 
-.flex-container>.notbooked{
-    color: rgb(0,178,190);
+.flex-container>.seat{
     width: 25px;
     height: 25px;
-    line-height: 25px;
     margin: 10px 10px 10px;
     font-size: 16px;
-    background-color: white;
-    border-color: rgb(0,178,190); 
     border-width: 1px;
     border-style: solid;
     border-radius: 5px;
 }
 
-.flex-container>.notbooked:hover{
+.flex-container>.not-booked{
+    color: rgb(0,178,190);
+    background-color: white;
+    border-color: rgb(0,178,190);
+}
+
+.flex-container>.not-booked:hover{
     color: white;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    margin: 10px 10px 10px;
-    font-size: 16px;
     background-color:rgb(0,178,190) ;
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
 }
 
 .flex-container>.booked{
     color: rgb(128,128,128);
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    margin: 10px 10px 10px;
-    font-size: 16px;
     background-color: lightgrey;
-    border-color: rgb(128,128,128); 
-    border-width: 1px;
-    border-style: solid;
-    border-radius: 5px;
 }
 
 .flex-container>.screen{
@@ -115,16 +99,10 @@ hr{
     margin: 20px 0 0;
 }
 
-/* container for seat selection and details*/
-.booking{
-    width: 100%;
-    height: auto;
-}
-
 
 /* Right side container for movie title, date, button to continue payment */
 .confirmation{
-    margin: -200px 40px 0px;
+    margin: -200px 40px 0;
     /* height: auto; */
     padding: 40px 20px;
     width: 45%;    
@@ -132,30 +110,30 @@ hr{
 }
 
 .booking-top{
-    margin: -45px 0px 0px;
+    margin: -45px 0 0;
     height: auto;
     padding: 20px;
 }
 
-booking{
+.booking-summary{
     font-size: 20px;
     font-weight: bold;
     color: rgb(128,128,128);
 }
 
 .booking-detail{
-    margin: 10px 0px 0px 20px;
+    margin: 10px 0 0 20px;
     height: auto;
 }
 
-#detailtitle{
+#detail-title{
     font-weight: bold;
     font-size: 16px;
-    margin: 5px 0px 10px 0px;
+    margin: 5px 0 10px 0;
 }
 
 .seat{
-    margin: 20px 0px 0px 20px;
+    margin: 20px 0 0 20px;
 }
 
 #booking-seat{
@@ -175,7 +153,7 @@ button{
     float: right;
     background-color: rgb(0,178,190);
     color: white;
-    margin: 30px -80px 0px;
+    margin: 30px -80px 0;
     padding: 14px 20px;
     width: 25%;
     border: none;
@@ -190,17 +168,16 @@ button:hover {
 /* The Modal - background */
 .modal {
     display: none; 
-    position: fixed; 
-    z-index: 1; 
+    position: fixed;
     padding-top: 100px; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto;=
+    overflow: auto;
     background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.4); ]
-  }
+    background-color: rgba(0,0,0,0.4);
+}
 
 .modal-content {
     text-align: center;
@@ -210,29 +187,27 @@ button:hover {
     border: 1px solid #888;
     border-radius: 10px;
     width: 30%;
-    height: 40%;
+    height: auto;
+    box-sizing: content-box;
 }
 
 #payment{
-    margin: 60px 0px 40px;
+    margin: 60px 0 40px;
     font-size: 30px;
     color: darkblue; 
 }
 
-#thankyou{
+#thank-you{
     font-size: 20px;
-    margin: 20px 0px 60px;
+    margin: 20px 0 60px;
 }
 
-buttontransaction{
+.button-transaction{
     font-size: 20px;
-    padding: 20px;
     width: 100%;
-    height: 40px;
-    margin: 40px 0px 0px;
+    height: auto;
+    margin: 40px 0 0;
     background-color: rgb(0,178,190);
-    color: white;
     border-radius: 5px;
-    border: none;
     cursor: pointer;
 }

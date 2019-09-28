@@ -1,47 +1,55 @@
 <div id="main-content">
+
     <a href="#" class="previous">&#8249;</a>
-    <div class="movschedule">
+    <div class="mov-schedule">
         <div id="movietitle"><? echo $this->data['bookInfo']['movie'];?></div>
         <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
     </div>
-    <hr></hr>
-    <div class="booking">
+    <hr>
+
+    <div>
         <div class="flex-container">
             <? for($i = 1; $i <= 30; $i++)
                 {
                     if ($this->data['seats'][$i])
                     {
-                        echo "<div class=\"booked\"> $i </div>";
+                        echo "<button class=\"seat booked\"> $i </button>";
                     }
                     else
                     {
-                        echo "<div class=\"notbooked\"> $i </div>";
+                        echo "<button class=\"seat not-booked\"> $i </button>";
                     }
                 };
             ?>
                 <div class="screen">Screen</div>
-        </div>    
+        </div>
+
+
         <div class="confirmation">
-            <div class="booking-top"><booking>Booking Summary</booking></div>
+            <div class="booking-top booking-summary">Booking Summary</div>
             <div class="booking-detail">
-                    <div id="detailtitle">SPIDER-MAN FAR FROM HOME</div>
-                    <div id="release-date">July 2, 2019</div>
+                    <div id="detail-title"><? echo $this->data['bookInfo']['movie'];?></div>
+                    <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
             </div>
             <div class="seat">
                 <div id="booking-seat">Seat #3</div>
                 <div id="price">Rp 45000</div>
             </div>
 
-            <button id="buybtn">Buy Ticket</button>
+            <button id="buy-btn">Buy Ticket</button>
 
-            <div id="buymodal" class="modal">
+
+            <div id="buy-modal" class="modal">
                 <div class="modal-content">
                     <div id="payment">Payment Success!</div>
-                    <div id="thankyou">Thank you for purchasing! You can view your purcahse now.</div>
-                    <buttontransaction>Go to transaction history</buttontransaction>
+                    <div id="thank-you">Thank you for purchasing! You can view your purchase now.</div>
+                    <a href="<? echo URL_BASE_PUBLIC;?>transaction">
+                        <button class = "button-transaction">Go to transaction history</button>
+                    </a>
                 </div>
             </div>
 
         </div>
     </div>
+
 </div>
