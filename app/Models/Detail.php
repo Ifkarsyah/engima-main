@@ -5,6 +5,7 @@ namespace App\Models;
 
 
 use App\Core\BaseModel;
+use Exception;
 
 /**
  * Class Detail
@@ -15,15 +16,25 @@ class Detail extends BaseModel
     /**
      * @param $movieID
      * @return mixed
+     * @throws Exception
      */
     public function getListScheduleByMovieID($movieID)
     {
         $result = $this->db->execute("
-                        SELECT date_time, available_seats 
+                        SELECT schedules.id, date_time, available_seats 
                         FROM schedules 
-                        WHERE schedules.movie_id = :movieID /*AND date_time >= NOW()*/",
+                        WHERE schedules.movie_id = :movieID AND date_time >= NOW()",
             ['movieID' => $movieID]);
-        return $result->getQueryResult();
+        $result =  $result->getQueryResult();
+        foreach ($result as $row)
+        {
+            $row->is_available = ($row->available_seats > 0);
+
+            $dt = new \DateTime($row->date_time);
+            $row->date = $dt->format('Y-m-d');
+            $row->time = $dt->format('h:i A');
+        }
+        return $result;
     }
 
     /**

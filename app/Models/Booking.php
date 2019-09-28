@@ -35,6 +35,7 @@ class Booking extends BaseModel
     /**
      * @param $scheduleID
      * @return mixed
+     * @throws \Exception
      */
     public function getScheduleInfoByID($scheduleID){
         $dbResultScheduleInfo = $this->db->execute(
@@ -48,7 +49,11 @@ class Booking extends BaseModel
         );
         $dbResultMovieTitle = $dbResultMovieTitle->getQueryResult();
 
-        $scheduleInfo['date_time'] = $dbResultScheduleInfo[0]->date_time;
+
+        $dt = new \DateTime($dbResultScheduleInfo[0]->date_time);
+
+        $scheduleInfo['date'] = $dt->format('Y-m-d');
+        $scheduleInfo['time'] = $dt->format('h:i A');
         $scheduleInfo['available_seats'] = $dbResultScheduleInfo[0]->available_seats;
         $scheduleInfo['is_available'] = ($scheduleInfo['available_seats'] > 0);
         $scheduleInfo['movie'] = $dbResultMovieTitle[0]->title;
@@ -80,8 +85,8 @@ class Booking extends BaseModel
 
         // Step 3: Add transaction
         $this->db->execute(
-          "INSERT INTO transactions (schedule_id, user_id, seat_number, price) 
-                       VALUES (:scheduleID, :userID, :seatNumber, 45000)",
+          "INSERT INTO transactions (schedule_id, user_id, price) 
+                       VALUES (:scheduleID, :userID, 45000)",
             ['scheduleID' => $scheduleID, 'userID' => $userID, 'seatNumber' => $seatNumber]
         );
     }
