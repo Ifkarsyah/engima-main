@@ -1,8 +1,8 @@
 <div id="main-content">
 
-    <a href="#" class="previous">&#8249;</a>
+    <a href="<? echo URL_BASE_PUBLIC . 'detail/' . $this->data['bookInfo']['movie_id'];?>" class="previous">&#8249;</a>
     <div class="mov-schedule">
-        <div id="movie-title"><? echo $this->data['bookInfo']['movie'];?></div>
+        <div id="movie-title"><? echo $this->data['bookInfo']['movie_title'];?></div>
         <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
     </div>
     <hr>
@@ -25,7 +25,7 @@
         <div class="confirmation">
             <div class="booking-top booking-summary">Booking Summary</div>
             <div class="booking-detail">
-                    <div id="detail-title"><? echo $this->data['bookInfo']['movie'];?></div>
+                    <div id="detail-title"><? echo $this->data['bookInfo']['movie_title'];?></div>
                     <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
             </div>
             <div class="seat">
