@@ -1,4 +1,4 @@
-<div id="result">
+<div id="main-content">
     <h1>Hello, <?php echo $this->data['username']; ?></h1>
     <h3>Now Playing</h3>
     <div class="flex-container">

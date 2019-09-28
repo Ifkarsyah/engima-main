@@ -111,6 +111,8 @@ body {
     height: 7%;
     float: left;
     margin: 0 0 0;
+    color:yellow;
+    font-size:300%;
 }
 #movietitle {
     font-size: 14px;
