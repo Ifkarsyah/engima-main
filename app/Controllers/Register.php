@@ -21,8 +21,9 @@ class Register extends BaseController
         $this->view->data['pageTitle'] = 'Register';
 
         // Step 2: Render
-        $this->view->addCSS('css/login.css');
         $this->view->addJS('js/index.js');
+        $this->view->addCSS('css/register.css');
+        $this->view->addJS('js/register.js');
         $this->view->render('templates/header');
         $this->view->render('register/index');
         $this->view->render('templates/footer');
@@ -42,10 +43,11 @@ class Register extends BaseController
     }
 
     /**
-     *
+     * @param $username
      */
-    public function isUsernameExists()
+    public function isUsernameExists($username)
     {
-
+        $exists = $this->useModel('Register')->isUsernameExists($username);
+        http_response_code($exists ? 400 : 200);
     }
 }

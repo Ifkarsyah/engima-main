@@ -57,4 +57,15 @@ class Register extends BaseModel
 
         return $targetFile;
     }
+
+    public function isUsernameExists($username)
+    {
+        $result = $this->db->execute(
+            'SELECT COUNT(id) AS count 
+                         FROM users 
+                         WHERE username = :username', ['username' => $username]
+        );
+        $result = $result->getQueryResult()[0]->count;
+        return ((int) $result > 0);
+    }
 }
