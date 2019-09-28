@@ -31,18 +31,17 @@ class Booking extends BaseController
         // Step 3: Render
         $this->view->addCSS('css/index.css');
         $this->view->addCSS('css/booking.css');
+        $this->view->addJS('js/index.js');
+        $this->view->addJS('js/booking.js');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');
         $this->view->render('booking/index');
-        $this->view->addJS('js/booking.js');
         $this->view->render('templates/footer');
     }
 
-    public function book($scheduleID)
+    public function book($scheduleID, $seatNumber)
     {
-        $seatNumber = $_POST['seatNumber'];
         $userID = $this->getUserIDFromCookies();
         $this->useModel('Booking')->bookSeat($userID, $scheduleID, $seatNumber);
     }
-
 }

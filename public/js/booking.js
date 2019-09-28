@@ -1,12 +1,6 @@
 let modal = document.getElementById("buy-modal");
 
-let btn = document.getElementById("buy-btn");
-
-btn.onclick = function(){
-    modal.style.display = "block";
-}
-
-window.onclick = function(event){
+window.onclick = (event) => {
     if(event.target === modal){
         modal.style.display = "none";
     }
@@ -14,9 +8,11 @@ window.onclick = function(event){
 
 let seats = document.getElementsByClassName('seat-chair not-booked');
 let bookingSeat = document.getElementById("booking-seat");
-let seatSelectionNumber = 0;
 
 seats[0].className = "seat-chair seat-active";
+let seatSelectionNumber = seats[0].innerHTML;
+bookingSeat.innerText = "Seat #" + seatSelectionNumber;
+
 for (let i=0; i < seats.length; i++){
     seats[i].addEventListener("click", function () {
         let currentSeat = document.getElementsByClassName("seat-active");
@@ -28,14 +24,12 @@ for (let i=0; i < seats.length; i++){
 }
 
 let buttonBuyTicket = document.getElementById("buy-btn");
-buttonBuyTicket.addEventListener("click", function () {
+buttonBuyTicket.onclick = () => {
+    modal.style.display = "block";
     let currentURL = window.location.href;
     let lastURLSegment = currentURL.substr(currentURL.lastIndexOf('/') + 1);
-
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", URL_BASE_PUBLIC + 'booking/book/' + lastURLSegment, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify({
-        seatNumber: seatSelectionNumber
-    }));
-})
+    let targetUrl = URL_BASE_PUBLIC + 'booking/book/' + lastURLSegment + '/' + seatSelectionNumber;
+    xhr.open("GET", targetUrl, true);
+    xhr.send();
+}

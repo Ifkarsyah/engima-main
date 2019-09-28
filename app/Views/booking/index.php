@@ -33,7 +33,7 @@
                 <div id="price">Rp 45000</div>
             </div>
 
-            <button id="buy-btn" form="seat-selection">Buy Ticket</button>
+            <button id="buy-btn">Buy Ticket</button>
 
 
             <div id="buy-modal" class="modal">
