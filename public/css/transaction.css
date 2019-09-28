@@ -48,3 +48,7 @@ button {
 #editreview {
     background-color: green;
 }
+
+a:active{
+    color:white;
+}
