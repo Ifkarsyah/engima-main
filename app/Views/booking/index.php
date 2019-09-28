@@ -9,18 +9,13 @@
 
     <div>
         <div class="flex-container">
-            <? for($i = 1; $i <= 30; $i++)
-                {
-                    if ($this->data['seats'][$i])
-                    {
-                        echo "<button class=\"seat booked\"> $i </button>";
-                    }
-                    else
-                    {
-                        echo "<button class=\"seat not-booked\"> $i </button>";
-                    }
-                };
-            ?>
+            <? for($i = 1; $i <= 30; $i++) :?>
+                <?if ($this->data['seats'][$i]):?>
+                    <button class="seat booked"> <? echo $i; ?> </button>
+                <? else: ?>
+                    <button class="seat not-booked"> <? echo $i; ?> </button>
+                <? endif; ?>
+            <? endfor; ?>
                 <div class="screen">Screen</div>
         </div>
 
