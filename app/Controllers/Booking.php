@@ -26,13 +26,15 @@ class Booking extends BaseController
         $this->view->data['userID'] = $userID;
         $this->view->data['seats'] = $this->useModel('Booking')->getAvailableSeatsByScheduleID($scheduleID);
         $this->view->data['bookInfo'] = $this->useModel('Booking')->getScheduleInfoByID($scheduleID);
-        // print_r($this->view->data);
+//        print_r($this->view->data);
+
         // Step 3: Render
+        $this->view->addCSS('css/index.css');
         $this->view->addCSS('css/booking.css');
-        $this->view->addJS('js/booking.js');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');
         $this->view->render('booking/index');
+        $this->view->addJS('js/booking.js');
         $this->view->render('templates/footer');
     }
 

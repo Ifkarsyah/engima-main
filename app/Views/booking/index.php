@@ -1,43 +1,24 @@
-<div id="result">
+<div id="main-content">
     <a href="#" class="previous">&#8249;</a>
     <div class="movschedule">
-        <div id="movietitle">SPIDER-MAN FAR FROM HOME</div>
-        <div id="release-date">July 2, 2019</div>
+        <div id="movietitle"><? echo $this->data['bookInfo']['movie'];?></div>
+        <div id="release-date"><? echo $this->data['bookInfo']['date'] . ' - ' . $this->data['bookInfo']['time'];?></div>
     </div>
     <hr></hr>
     <div class="booking">
         <div class="flex-container">
-                
-                <div class="notbooked">1</div>
-                <div class="booked">2</div>
-                <div class="notbooked">3</div>
-                <div class="notbooked">4</div>
-                <div class="booked">5</div>
-                <div class="notbooked">6</div>
-                <div class="booked">7</div>
-                <div class="notbooked">8</div>
-                <div class="booked">9</div>
-                <div class="notbooked">10</div>
-                <div class="booked">11</div>
-                <div class="notbooked">12</div>
-                <div class="notbooked">13</div>
-                <div class="notbooked">14</div>
-                <div class="notbooked">15</div>
-                <div class="notbooked">16</div>
-                <div class="booked">17</div>
-                <div class="notbooked">18</div>
-                <div class="notbooked">19</div>
-                <div class="notbooked">20</div>
-                <div class="notbooked">21</div>
-                <div class="notbooked">22</div>
-                <div class="booked">23</div>
-                <div class="notbooked">24</div>
-                <div class="notbooked">25</div>
-                <div class="notbooked">26</div>
-                <div class="booked">27</div>
-                <div class="booked">28</div>
-                <div class="notbooked">29</div>
-                <div class="booked">30</div>
+            <? for($i = 1; $i <= 30; $i++)
+                {
+                    if ($this->data['seats'][$i])
+                    {
+                        echo "<div class=\"booked\"> $i </div>";
+                    }
+                    else
+                    {
+                        echo "<div class=\"notbooked\"> $i </div>";
+                    }
+                };
+            ?>
                 <div class="screen">Screen</div>
         </div>    
         <div class="confirmation">
@@ -64,5 +45,3 @@
         </div>
     </div>
 </div>
-
-</body>
