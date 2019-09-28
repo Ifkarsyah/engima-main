@@ -23,7 +23,8 @@ class Detail extends BaseModel
         $result = $this->db->execute("
                         SELECT schedules.id, date_time, available_seats 
                         FROM schedules 
-                        WHERE schedules.movie_id = :movieID AND date_time >= NOW()",
+                        WHERE schedules.movie_id = :movieID AND date_time >= NOW()
+                        LIMIT 10",
             ['movieID' => $movieID]);
         $result =  $result->getQueryResult();
         foreach ($result as $row)
@@ -49,6 +50,7 @@ class Detail extends BaseModel
                               reviews r JOIN transactions t on r.transaction_id = t.id 
                                         JOIN users u on t.user_id = u.id
                          WHERE r.movie_id = :movieID
+                         ORDER BY rating DESC 
                          LIMIT 3",
             ['movieID' => $movieID]
         );
@@ -65,6 +67,12 @@ class Detail extends BaseModel
                              GROUP BY m.id",
             ['movieID' => $movieID]
         );
-        return $result->getQueryResult();
+
+        $result = $result->getQueryResult()[0];
+        if (!$result->rating)
+        {
+            $result->rating = 'no rating';
+        }
+        return $result;
     }
 }
