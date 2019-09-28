@@ -1,6 +1,6 @@
-var modal = document.getElementById("buymodal");
+let modal = document.getElementById("buy-modal");
 
-var btn = document.getElementById("buybtn");
+let btn = document.getElementById("buy-btn");
 
 btn.onclick = function(){
     modal.style.display = "block";
@@ -11,3 +11,6 @@ window.onclick = function(event){
         modal.style.display = "none";
     }
 }
+
+let seats = document.getElementsByClassName("flex-container");
+let
