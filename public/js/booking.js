@@ -13,4 +13,3 @@ window.onclick = function(event){
 }
 
 let seats = document.getElementsByClassName("flex-container");
-let

@@ -13,11 +13,11 @@
                 {
                     if ($this->data['seats'][$i])
                     {
-                        echo "<button class=\"booked\"> $i </button>";
+                        echo "<button class=\"seat booked\"> $i </button>";
                     }
                     else
                     {
-                        echo "<button class=\"not-booked\"> $i </button>";
+                        echo "<button class=\"seat not-booked\"> $i </button>";
                     }
                 };
             ?>
