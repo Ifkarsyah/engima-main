@@ -35,6 +35,7 @@ class Booking extends BaseModel
     /**
      * @param $scheduleID
      * @return mixed
+     * @throws \Exception
      */
     public function getScheduleInfoByID($scheduleID){
         $dbResultScheduleInfo = $this->db->execute(
@@ -48,11 +49,45 @@ class Booking extends BaseModel
         );
         $dbResultMovieTitle = $dbResultMovieTitle->getQueryResult();
 
-        $scheduleInfo['date_time'] = $dbResultScheduleInfo[0]->date_time;
+
+        $dt = new \DateTime($dbResultScheduleInfo[0]->date_time);
+
+        $scheduleInfo['date'] = $dt->format('Y-m-d');
+        $scheduleInfo['time'] = $dt->format('h:i A');
         $scheduleInfo['available_seats'] = $dbResultScheduleInfo[0]->available_seats;
         $scheduleInfo['is_available'] = ($scheduleInfo['available_seats'] > 0);
         $scheduleInfo['movie'] = $dbResultMovieTitle[0]->title;
 
         return $scheduleInfo;
+    }
+
+    /**
+     * @param $userID
+     * @param $scheduleID
+     * @param $seatNumber
+     */
+    public function bookSeat($userID, $scheduleID, $seatNumber)
+    {
+        // Step 1: Reduce table schedule
+        $this->db->execute(
+            "UPDATE schedules 
+                         SET available_seats=available_seats-1
+                         WHERE id=:scheduleID",
+            ['scheduleID' => $scheduleID]
+        );
+
+        // Step 2: Add table seats
+        $this->db->execute(
+            "INSERT INTO seats (schedule_id, seat_number) 
+                         VALUES (:scheduleID, :seatNumber)",
+            [':scheduleID' => $scheduleID, ':seatNumber' => $seatNumber]
+        );
+
+        // Step 3: Add transaction
+        $this->db->execute(
+          "INSERT INTO transactions (schedule_id, user_id, price) 
+                       VALUES (:scheduleID, :userID, 45000)",
+            ['scheduleID' => $scheduleID, 'userID' => $userID, 'seatNumber' => $seatNumber]
+        );
     }
 }

@@ -22,6 +22,7 @@ class Home extends BaseController
         $this->view->data['pageTitle'] = 'Home';
         $this->view->data['movies'] = $this->useModel('Home')->getAllMovies();
 
+        $this->view->addCSS('css/index.css');
         $this->view->addCSS('css/home.css');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');

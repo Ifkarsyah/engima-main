@@ -25,21 +25,19 @@ class Login extends BaseModel
                          WHERE email = :email AND password = :password",
             [':email' => $email, ':password' => $password]
         );
-        $dbResultFirst = $this->db->getQueryResult()[0];
-        return array('id' => $dbResultFirst->id,
-            'username' => $dbResultFirst->username);
+        return $this->db->getQueryResult()[0];
     }
 
     /**
      * @param $userID
-     * @param $username
+     * @param $hashedUsername
      */
-    public function insertNewCookies($userID, $username)
+    public function insertNewCookies($hashedUsername, $userID)
     {
         $this->db->execute(
             "INSERT INTO cookie (cookie_string, userid)
                          VALUES (:cookie_string, :userid)"
-            , ['cookie_string' => $username, 'userid' => $userID]
+            , ['cookie_string' => $hashedUsername, 'userid' => $userID]
         );
     }
 }
