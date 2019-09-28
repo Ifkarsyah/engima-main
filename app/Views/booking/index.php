@@ -1,20 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="booking.css">
-</head>
-
-<body>
-        <div class="nav">
-                <ul>
-                    <li><a class="active" href="#home"><engima><eng>Engi</eng>ma</engima></a></li>
-                    <li><input type="text2" placeholder="Search movie" name="search2"></li>
-                    <li style="float:right"><a href = "#home"><navbar>Logout</navbar></a></li>
-                    <li style="float:right"><a href = "#home"><navbar>Transaction</navbar></a></li>
-                </ul>
-        </div>
-
 <div id="result">
     <a href="#" class="previous">&#8249;</a>
     <div class="movschedule">
@@ -24,6 +7,7 @@
     <hr></hr>
     <div class="booking">
         <div class="flex-container">
+                
                 <div class="notbooked">1</div>
                 <div class="booked">2</div>
                 <div class="notbooked">3</div>
@@ -82,20 +66,3 @@
 </div>
 
 </body>
-<script>
-    var modal = document.getElementById("buymodal");
-
-    var btn = document.getElementById("buybtn");
-
-    btn.onclick = function(){
-        modal.style.display = "block";
-    }
-
-    window.onclick = function(event){
-        if(event.target == modal){
-            modal.style.display = "none";
-        }
-    }
-</script>
-
-</html>
