@@ -24,7 +24,7 @@ class Transaction extends BaseModel
         $result =  $result->getQueryResult();
         foreach ($result as $row)
         {
-            $row->is_can_review = $row->date_time >= date('Y-m-d H:i:s');
+            $row->is_can_review = (date('Y-m-d H:i:s') > $row->date_time);
             $row->is_review_exists = $this->isReviewExists($row->id);
         }
         return $result;
@@ -33,7 +33,7 @@ class Transaction extends BaseModel
     private function isReviewExists($transactionID)
     {
         $result = $this->db->execute(
-            "SELECT COUNT(*) FROM reviews WHERE transaction_id = :transactionID",
+            "SELECT reviews.transaction_id FROM reviews WHERE transaction_id = :transactionID",
             ['transactionID' => $transactionID]
         );
         return ($result->getQueryResultCount() > 0);
