@@ -36,5 +36,33 @@ class Review extends BaseModel
                 'comment' => $comment,
             ]
         );
+
+        $rated = $this->db->execute(
+            "SELECT rating FROM movies WHERE movie_id = :movieID",['movieID' => $movie_id]
+        );
+        $rated = $rated->getQueryResult()[0]->rating;
+
+        if ($rated)
+        {
+            $this->db->execute(
+                "UPDATE movies SET rating = (rating + :newRating)/2 WHERE id = :movieID",
+                [
+                    'movieID' => $movie_id,
+                    'newRating' => ($rating + 'rating')
+                ]
+            );
+        }
+        else
+        {
+            $this->db->execute(
+                "UPDATE movies SET rating = :newRating WHERE id = :movieID",
+                [
+                    'movieID' => $movie_id,
+                    'newRating' => $rating
+                ]
+            );
+        }
+
+
     }
 }
