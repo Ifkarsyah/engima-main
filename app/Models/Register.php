@@ -68,4 +68,26 @@ class Register extends BaseModel
         $result = $result->getQueryResult()[0]->count;
         return ((int) $result > 0);
     }
+    
+    public function isEmailExists($email)
+    {
+        $result = $this->db->execute(
+            'SELECT COUNT(id) AS count 
+                         FROM users 
+                         WHERE email = :email', ['email' => $email]
+        );
+        $result = $result->getQueryResult()[0]->count;
+        return ((int) $result > 0);
+    }
+
+    public function isPhoneExist($phone)
+    {
+        $result = $this->db->execute(
+            'SELECT COUNT(id) AS count 
+                         FROM users 
+                         WHERE phone = :phone', ['phone' => $phone]
+        );
+        $result = $result->getQueryResult()[0]->count;
+        return ((int) $result > 0);
+    }
 }
