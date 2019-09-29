@@ -1,4 +1,4 @@
-<div id="result">
+<div id="main-content">
     <h1>
         Showing search result for keyword <?= $this->data['pageTitle']?>
     </h1>
