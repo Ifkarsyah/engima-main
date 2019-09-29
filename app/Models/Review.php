@@ -45,10 +45,17 @@ class Review extends BaseModel
         if ($rated)
         {
             $this->db->execute(
-                "UPDATE movies SET rating = (rating + :newRating)/2 WHERE id = :movieID",
+                "UPDATE movies SET rating = (rating * numRating + :newRating)/( numRating + 1) WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
                     'newRating' => ($rating + 'rating')
+                ]
+            );
+            $this->db->execute(
+                "UPDATE movies SET numRating = ( :numRating + 1 ) WHERE id = :movieID",
+                [
+                    'movieID' => $movie_id,
+                    'numRating' => ($numRating)
                 ]
             );
         }
@@ -59,6 +66,13 @@ class Review extends BaseModel
                 [
                     'movieID' => $movie_id,
                     'newRating' => $rating
+                ]
+            );
+            $this->db->execute(
+                "UPDATE movies SET (numRating = 1) WHERE id = :movieID",
+                [
+                    'movieID' => $movie_id,
+                    'numRating' => ($numRating)
                 ]
             );
         }
