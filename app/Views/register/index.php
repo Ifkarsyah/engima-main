@@ -25,9 +25,9 @@
         <div id="confirm-error" class="error"></div>
 
         <label for="profilePic"><h3>Profile Picture</h3></label>
-        <button class="button_browse">Browse</button>
+        <input type="file" name="profilePic">
 
-        <button type="submit">Register</button>
+        <button id="submit-register" type="submit">Register</button>
         <label><h4>Already have account? <a href="<? echo URL_BASE_PUBLIC . 'login'?>">Login here </a href></h4></label>
     </div>
 </form>

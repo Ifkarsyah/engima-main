@@ -1,3 +1,6 @@
+
+
+
 /* ------------- CHECK username ---------- */
 let checkUsername = function () {
     let fieldUsername = document.getElementById("username");
@@ -12,10 +15,12 @@ let checkUsername = function () {
             fieldUsername.style.borderColor = "red";
             fieldUsernameError.style.color = "red";
             fieldUsernameError.innerHTML = "Username " + fieldUsername.value + " is taken.";
+            return false;
         } else {
             fieldUsername.style.borderColor = "green";
             fieldUsernameError.style.color = "green";
             fieldUsernameError.innerHTML = "You can use this username";
+            return true;
         }
     };
 
@@ -34,10 +39,12 @@ let checkEmail = function () {
         fieldEmail.style.borderColor = "green";
         fieldEmailError.style.color = "green";
         fieldEmailError.innerHTML = "Email is valid";
+        return true;
     } else {
         fieldEmail.style.borderColor = "red";
         fieldEmailError.style.color = "red";
         fieldEmailError.innerHTML = "Please enter a valid email";
+        return false;
     }
 }
 
@@ -57,10 +64,12 @@ let checkPhone = function () {
         fieldPhone.style.borderColor = "green";
         fieldPhoneError.style.color = "green";
         fieldPhoneError.innerHTML = "Phone is valid.";
+        return true;
     } else {
         fieldPhone.style.borderColor = "red";
         fieldPhoneError.style.color = "red";
         fieldPhoneError.innerHTML = "Phone is not valid, number must be 9 to 12.";
+        return false;
     }
 }
 
@@ -88,6 +97,7 @@ let checkPassword = function () {
 
             fieldPassword.style.borderColor = "green";
             fieldConfirmPassword.style.borderColor = "green";
+            return true;
         } else {
             fieldPasswordError.style.color = 'red';
             fieldPasswordError.innerHTML = 'Password is not match';
@@ -97,6 +107,8 @@ let checkPassword = function () {
 
             fieldPassword.style.borderColor = "red";
             fieldConfirmPassword.style.borderColor = "red";
+
+            return false;
         }
     } else {
         fieldPasswordError.style.color = 'red';
@@ -107,8 +119,7 @@ let checkPassword = function () {
 
         fieldPassword.style.borderColor = "red";
         fieldConfirmPassword.style.borderColor = "red";
+
+        return false;
     }
 }
-
-
-/* ------------- ------------ */

@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Core\BaseController;
+use App\Utilities\Redirect;
 
 /**
  * Class Register
@@ -40,6 +41,7 @@ class Register extends BaseController
         $password = $_POST['password'];
         $profilePic = $_FILES['profilePic'];
         $this->useModel('Register')->insertNewUser($username, $email, $phone, $password, $profilePic);
+        Redirect::to('home');
     }
 
     /**
