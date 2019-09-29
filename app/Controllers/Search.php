@@ -28,7 +28,7 @@ class Search extends BaseController
         $this->view->data['totalMovies'] = $this->useModel('Search')->totalMovies($querySearch);
         $this->view->data['currentPage'] = $pageNumber;
 
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/navbar.css');
         $this->view->addCSS('css/search.css');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');

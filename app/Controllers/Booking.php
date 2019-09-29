@@ -29,7 +29,7 @@ class Booking extends BaseController
         $this->view->data['bookInfo'] = $this->useModel('Booking')->getScheduleInfoByID($scheduleID);
 
         // Step 3: Render
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/navbar.css');
         $this->view->addCSS('css/booking.css');
         $this->view->addJS('js/index.js');
         $this->view->addJS('js/booking.js');

@@ -23,7 +23,7 @@ class Transaction extends BaseController
         $this->view->data['pageTitle'] = 'Transaction';
         $this->view->data['transactions'] = $this->useModel('Transaction')->getTransactionHistory($userID);
 
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/navbar.css');
         $this->view->addCSS('css/transaction.css');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');

@@ -25,7 +25,7 @@ class Review extends BaseController
         $this->view->data['movie'] = $this->useModel('Review')->getMovieFromTransaction($transactionID);
 
         $this->view->addCSS('css/review.css');
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/navbar.css');
         $this->view->render('templates/header');
         $this->view->render('review/index');
         $this->view->render('templates/footer');

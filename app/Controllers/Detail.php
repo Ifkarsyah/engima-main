@@ -24,7 +24,7 @@ class Detail extends BaseController
         $this->view->data['schedules'] = $this->useModel('Detail')->getListScheduleByMovieID($movieID);
         $this->view->data['reviews'] = $this->useModel('Detail')->getListReviewByMovieID($movieID);
 
-        $this->view->addCSS('css/index.css');
+        $this->view->addCSS('css/navbar.css');
         $this->view->addCSS('css/detail.css');
         $this->view->render('templates/header');
         $this->view->render('templates/navbar');
