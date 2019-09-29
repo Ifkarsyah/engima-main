@@ -4,10 +4,10 @@
     <? foreach ($this->data['transactions'] as $transaction): ?>
         <div id="movie">
             <img id="moviepic" src="/tugas-besar-1-2019/public/img/movie/movie-<?php echo $transaction->movie_id;?>.jpg">
-            <div id="movietext" class="container">
+            <div id="movietext">
                 <div>
                     <h2 id="movie-title"><?php echo $transaction->title; ?></h2>
-                    <div id="moviedesc" class="container">
+                    <div id="moviedesc">
                         <span id="schedule">
                             <span style="color: rgb(0, 178, 190)">Schedule: </span>
                             <span><?php echo $transaction->date_time; ?></span>

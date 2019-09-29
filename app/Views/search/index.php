@@ -20,7 +20,7 @@
                         <p><?php echo $movie->plot ?></p>
                     </div>
                 </div>
-                <button id="viewdetails">View details</button>
+                <a href="<?= URL_BASE_PUBLIC . "detail/" . $movie->id; ?>"><div id="viewdetails">View details</div></a>
             </div>
             <hr noshade>
         </div>
