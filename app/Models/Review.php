@@ -45,7 +45,7 @@ class Review extends BaseModel
         if ($rated)
         {
             $this->db->execute(
-                "UPDATE movies SET rating = (rating + :newRating)/2 WHERE id = :movieID",
+                "UPDATE movies SET rating = (rating * numRating + :newRating)/( numRating + 1) WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
                     'newRating' => ($rating + 'rating')
