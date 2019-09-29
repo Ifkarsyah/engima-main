@@ -15,21 +15,26 @@ class Search extends BaseController
     /**
      * @param $pageNumber
      */
-    public function index($pageNumber)
+    public function index($pageNumber = 1)
     {
-        $this->getUserIDFromCookies();
+        if(isset($_POST['search2'])) {
+            $querySearch = $_POST['search2'];
+        } else {
+            $querySearch = "";
+        }
 
-        $querySearch = 'captain';
-
-        $this->view->data['pageTitle'] = 'Search';
+        // $this->getUserIDFromCookies();
+        $this->view->data['pageTitle'] = $querySearch;
         $this->view->data['movies'] = $this->useModel('Search')->searchMovies($querySearch, $pageNumber);
-        print_r($this->view->data);
+        $this->view->data['totalMovies'] = $this->useModel('Search')->totalMovies($querySearch);
+        $this->view->data['currentPage'] = $pageNumber;
+        // print_r($this->view->data);
 
         $this->view->addCSS('css/index.css');
         $this->view->addCSS('css/search.css');
         $this->view->render('templates/header');
-        $this->view->render('templates/navbar');
         $this->view->render('search/index');
         $this->view->render('templates/footer');
+        $this->view->render('templates/navbar');
     }
 }
