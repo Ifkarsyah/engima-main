@@ -17,15 +17,16 @@
                 <?php if($transaction->is_can_review): ?>
                     <?php if($transaction->is_review_exists): ?>
                         <span>
-                        <a href= "<? echo URL_BASE_PUBLIC . "review/" . $transaction->id; ?>"><button id="editreview">Edit Review</button></a>
+                        <a href= "<? echo URL_BASE_PUBLIC . "review/" . $transaction->id; ?>"><div class="button" id="editreview">Edit Review</div></a>
                         </span>
                         <span>
-                            <a href= "<? echo URL_BASE_PUBLIC . "transaction/deleteReview/" . $transaction->id;?>"><button id="deletereview">Delete Review</button></a>
+                            <a href= "<? echo URL_BASE_PUBLIC . "transaction/deleteReview/" . $transaction->id;?>"><div class="button" id="deletereview">Delete Review</div></a>
                         </span>
                     <?php else: ?>
-                        <a href= "<? echo URL_BASE_PUBLIC . "review/" . $transaction->id; ?>"><button id="addreview">Add Review</button></a>
+                        <a href= "<? echo URL_BASE_PUBLIC . "review/" . $transaction->id; ?>"><div class="button" id="addreview">Add Review</div></a>
                     <?php endif; ?>
-                        
                 <?php endif; ?>
+            </div>
+        </div>
     <?endforeach;?>
 </div>
