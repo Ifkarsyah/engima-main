@@ -50,4 +50,22 @@ class Register extends BaseController
         $exists = $this->useModel('Register')->isUsernameExists($username);
         http_response_code($exists ? 400 : 200);
     }
+
+    /**
+     * 
+     */
+    public function isEmailExists($email)
+    {
+        $exists = $this->useModel('Register')->isEmailExists($email);
+        http_response_code($exists ? 400 : 200);
+    }
+
+    /**
+     * 
+     */
+    public function isPhoneExists($phone)
+    {
+        $exists = $this->useModel('Register')->isEmailExists($phone);
+        http_response_code($exists ? 400 : 200);
+    }
 }
