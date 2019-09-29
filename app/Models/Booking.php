@@ -58,7 +58,8 @@ class Booking extends BaseModel
         $scheduleInfo['time'] = $dt->format('h:i A');
         $scheduleInfo['available_seats'] = $dbResultScheduleInfo[0]->available_seats;
         $scheduleInfo['is_available'] = ($scheduleInfo['available_seats'] > 0);
-        $scheduleInfo['movie'] = $dbResultMovieTitle[0]->title;
+        $scheduleInfo['movie_title'] = $dbResultMovieTitle[0]->title;
+        $scheduleInfo['movie_id'] = $movieID;
 
         return $scheduleInfo;
     }
@@ -89,7 +90,7 @@ class Booking extends BaseModel
         $this->db->execute(
           "INSERT INTO transactions (schedule_id, user_id, price) 
                        VALUES (:scheduleID, :userID, 45000)",
-            ['scheduleID' => $scheduleID, 'userID' => $userID, 'seatNumber' => $seatNumber]
+            ['scheduleID' => $scheduleID, 'userID' => $userID]
         );
     }
 }

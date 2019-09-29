@@ -3,7 +3,7 @@
     <img id="moviepic" src="<? echo $this->data['movieInfo']->poster;?>" alt="spider">
     <div class="movdetail-container">
         <div>
-            <div id="movietitle"><? echo $this->data['movieInfo']->title;?></div>
+            <div id="movie-title"><? echo $this->data['movieInfo']->title;?></div>
             <div id="moviegenre-duration"><? echo $this->data['movieInfo']->genres . ' | ' . $this->data['movieInfo']->duration . ' minutes';?></div>
             <div id="release-date"><? echo 'Released date : ' . $this->data['movieInfo']->released_date;?></div>
             <div>

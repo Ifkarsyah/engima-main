@@ -7,7 +7,7 @@
                 <a href="<? echo URL_BASE_PUBLIC . 'detail/' . $movie->id; ?>">
                     <img id="moviepic" src="<? echo $movie->poster; ?>" alt="<? echo $movie->title; ?>">
                 </a>
-                <p id="movietitle"><? echo $movie->title; ?></p>
+                <p id="movie-title"><? echo $movie->title; ?></p>
                 <div>
                     <img id="star" src="https://www.pinpng.com/pngs/m/1-18185_small-yellow-star-clipart-yellow-star-clipart-hd.png" alt="star">
                     <p><? echo $movie->rating; ?></p>

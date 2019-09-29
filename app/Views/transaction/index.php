@@ -6,7 +6,7 @@
             <img id="moviepic" src="/tugas-besar-1-2019/public/img/movie/movie-<?php echo $transaction->movie_id;?>.jpg">
             <div id="movietext" class="container">
                 <div>
-                    <h2 id="movietitle"><?php echo $transaction->title; ?></h2>
+                    <h2 id="movie-title"><?php echo $transaction->title; ?></h2>
                     <div id="moviedesc" class="container">
                         <span id="schedule">
                             <span style="color: rgb(0, 178, 190)">Schedule: </span>
