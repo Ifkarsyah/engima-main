@@ -45,14 +45,14 @@ class Register extends BaseController
     /**
      * @param $username
      */
-    public function isUsernameExists($username)
+    public function checkusername($username)
     {
         $exists = $this->useModel('Register')->isUsernameExists($username);
         http_response_code($exists ? 400 : 200);
     }
 
     /**
-     * 
+     * @param $email
      */
     public function isEmailExists($email)
     {
@@ -61,7 +61,7 @@ class Register extends BaseController
     }
 
     /**
-     * 
+     * @param $phone
      */
     public function isPhoneExists($phone)
     {
