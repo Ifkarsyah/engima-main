@@ -23,13 +23,6 @@ class Search extends BaseModel
         );
         $dbResult = $dbResult->getQueryResult();
 
-        // foreach ($dbResult as $row)
-        // {
-        //     if (!$row->rating)
-        //     {
-        //         $row->rating = 'no rating';
-        //     }
-        // }
         return  $dbResult;
     }
 
@@ -38,18 +31,10 @@ class Search extends BaseModel
         $dbResult = $this->db->execute(
             "SELECT id, title, plot, rating, poster 
                          FROM movies m
-                         WHERE title LIKE '%$querySearch%'",
-        );
+                         WHERE title LIKE '%$querySearch%'");
         $dbResult = $dbResult->getQueryResult();
 
-        // -- // foreach ($dbResult as $row)
-        // -- // {
-        // -- //     if (!$row->rating)
-        // -- //     {
-        // -- //         $row->rating = 'no rating';
-        // -- //     }
-        // -- // }
 
         return  count($dbResult);
-    }    
+    }
 }
