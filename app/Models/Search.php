@@ -14,24 +14,42 @@ class Search extends BaseModel
 {
     public function searchMovies($querySearch, $pageNumber)
     {
+        $initialData = ($pageNumber * 6) - 6;
         $dbResult = $this->db->execute(
-            "SELECT m.id, title, poster, rating, plot 
-                         FROM movies m JOIN schedules s on m.id = s.movie_id
-                         WHERE m.title LIKE :querySearch COLLATE utf8_general_ci
-                         GROUP BY m.id",
-            [
-                'querySearch' => '%' . $querySearch . '%',
-                'pageNumber' => $pageNumber
-            ]);
+            "SELECT id, title, plot, rating, poster 
+                         FROM movies m
+                         WHERE title LIKE '%$querySearch%'
+                         LIMIT $initialData, 6",
+        );
         $dbResult = $dbResult->getQueryResult();
 
-        foreach ($dbResult as $row)
-        {
-            if (!$row->rating)
-            {
-                $row->rating = 'no rating';
-            }
-        }
+        // foreach ($dbResult as $row)
+        // {
+        //     if (!$row->rating)
+        //     {
+        //         $row->rating = 'no rating';
+        //     }
+        // }
         return  $dbResult;
     }
+
+    public function totalMovies($querySearch)
+    {
+        $dbResult = $this->db->execute(
+            "SELECT id, title, plot, rating, poster 
+                         FROM movies m
+                         WHERE title LIKE '%$querySearch%'",
+        );
+        $dbResult = $dbResult->getQueryResult();
+
+        // -- // foreach ($dbResult as $row)
+        // -- // {
+        // -- //     if (!$row->rating)
+        // -- //     {
+        // -- //         $row->rating = 'no rating';
+        // -- //     }
+        // -- // }
+
+        return  count($dbResult);
+    }    
 }
