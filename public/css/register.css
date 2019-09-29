@@ -83,3 +83,9 @@ h4{
     text-align: center;
     font-weight: normal;
 }
+
+#error{
+    color: red;
+    font-size: 12px;
+    text-align: left;
+}
