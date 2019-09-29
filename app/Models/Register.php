@@ -41,10 +41,10 @@ class Register extends BaseModel
      * @param $profilePic
      * @return string
      */
-    private function uploadProfilePic($profilePic): string
+    private function uploadProfilePic($profilePic)
     {
 
-        $rows = $this->db->execute("SELECT COUNT(id) FROM users");
+        $rows = $this->db->execute("SELECT id FROM users");
         $rows = $rows->getQueryResultCount();
 
         $oldFile = $profilePic['name'];
@@ -68,7 +68,7 @@ class Register extends BaseModel
         $result = $result->getQueryResult()[0]->count;
         return ((int) $result > 0);
     }
-    
+
     public function isEmailExists($email)
     {
         $result = $this->db->execute(

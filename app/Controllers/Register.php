@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Core\BaseController;
+use App\Utilities\Redirect;
 
 /**
  * Class Register
@@ -40,19 +41,20 @@ class Register extends BaseController
         $password = $_POST['password'];
         $profilePic = $_FILES['profilePic'];
         $this->useModel('Register')->insertNewUser($username, $email, $phone, $password, $profilePic);
+        Redirect::to('home');
     }
 
     /**
      * @param $username
      */
-    public function isUsernameExists($username)
+    public function checkusername($username)
     {
         $exists = $this->useModel('Register')->isUsernameExists($username);
         http_response_code($exists ? 400 : 200);
     }
 
     /**
-     * 
+     * @param $email
      */
     public function isEmailExists($email)
     {
@@ -61,7 +63,7 @@ class Register extends BaseController
     }
 
     /**
-     * 
+     * @param $phone
      */
     public function isPhoneExists($phone)
     {
