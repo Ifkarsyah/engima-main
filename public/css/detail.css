@@ -141,11 +141,20 @@ background-color: lightblue;
 color: white;
 }
 
+a:visited{
+    color: white;
+}
+
 .next {
 background-color: rgb(0,178,190);
 color: white;
 border-radius: 50%;
 }
+
+.next:visited{
+    color: white;
+}
+
 
 b {
 text-decoration: none;
