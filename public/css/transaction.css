@@ -6,8 +6,7 @@
     border-radius: 7px;
 }
 #movietext {
-    height: 150px;
-    padding-top: 3%;
+    padding: 0px 0px 0px;
 }
 hr {
     border-color:lightgray;
@@ -26,6 +25,7 @@ p {
     height: 6%;
 }
 #movie {
+    padding: 0px 0px 0px 0px;
     margin: 50px 0 0;
 }
 button {
