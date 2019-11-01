@@ -78,3 +78,30 @@ Engi telah mempekerjakan seorang UI/UX profesional untuk mendesain tampilan *web
 7. Search: 13517042
 8. Transaction: 13517018, 13517042
 9. Review: 13517018, 13517024, 13517042
+
+## PEMBAGIAN TUGAS 2
+
+### React - Bank Pro:
+1. Login Form: 13517024
+2. Transfer Form: 13517024
+3. Transaction History: 13517132
+4. Home, Userinfo: 13516138
+
+### Node.js - WS Transaksi:
+1. Tambah transaksi baru: 13516138
+2. Ubah transaksi: 13517132
+3. Kasih seluruh data transaksi ke suatu pengguna: 13517024
+
+### Jax-ws - WS Bank:
+1. Validasi no rek: 13516138
+2. Memberi data rekening: 13517132
+3. Melakukan transaksi: 13517024
+4. Buat akun virtual: 13517132
+5. Cek ada tidak suatu transaksi: 13517024
+
+### Ubah Engima:
+1. Ambil film dari MovieDB API: 13517132
+2. Ubah Home, tampil film 7 hari kebelakang: 13516138
+3. Detail Page, tambah rating dari MovieDB API: 13517024
+4. Buy Ticket Page: 13517132
+5. Transaction History, ambil dari WS Transaksi: 13517024
