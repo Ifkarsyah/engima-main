@@ -1,6 +1,6 @@
 <?php
 
-define('URL_BASE_PUBLIC', 'http://localhost/tugas-besar-1-2019/public/');
+define('URL_BASE_PUBLIC', 'http://localhost/engima/public/');
 
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
