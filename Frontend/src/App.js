@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import Switch from "react-bootstrap/cjs/Switch";
 import PrivateRoute from "./Utilities/PrivateRoute";
@@ -12,21 +11,21 @@ import RegisterPage from "./Pages/RegisterPage/RegisterPage";
 import MovieDetailPage from "./Pages/MovieDetailPage/MovieDetailPage";
 import ReviewPage from "./Pages/ReviewPage/ReviewPage";
 import BookingPage from "./Pages/BookingPage/BookingPage";
-import NavbarEngima from "./Components/Navbar/NavbarEngima";
+import GeneralForm from "./Components/Navbar/GeneralForm";
 
 function Switcher() {
     return (
-        <Switch>
+        <Switch className="h-100">
             <Route path="/login">
-                <GeneralPage title="Login">
+                <GeneralForm title="Welcome to Engima">
                     <LoginPage/>
-                </GeneralPage>
+                </GeneralForm>
             </Route>
 
             <Route path="/register">
-                <GeneralPage title="Register">
+                <GeneralForm title="Welcome to Engima">
                     <RegisterPage/>
-                </GeneralPage>
+                </GeneralForm>
             </Route>
 
             <PrivateRoute path="/home">
@@ -71,7 +70,6 @@ function Switcher() {
 export default function App() {
     return (
         <Router>
-            <NavbarEngima/>
             <Switcher/>
         </Router>
     );
