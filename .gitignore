@@ -116,4 +116,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+Backend/vendor/
+
 # End of https://www.gitignore.io/api/linux,windows,intellij,phpstorm,visualstudiocode
