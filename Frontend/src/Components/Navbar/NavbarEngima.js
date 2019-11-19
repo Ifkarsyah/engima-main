@@ -2,16 +2,21 @@ import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
-import { Redirect } from "react-router";
+import {Redirect, useHistory} from "react-router";
 import Authentication from "../../Utilities/Auth";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
+import useForm from "react-hook-form";
 
 export default function NavbarEngima() {
+  let history = useHistory();
   const logout = () => {
     Authentication.logout();
-    return <Redirect to="/login" />;
+    return <Redirect to="/login"/>;
+  };
+  const {register, handleSubmit} = useForm({mode: "onSubmit"});
+  const onSubmit = async jsonBody => {
+    history.push("/search?keyword=" + jsonBody['search']);
   };
   return (
     <>
@@ -24,8 +29,8 @@ export default function NavbarEngima() {
             </strong>
           </Navbar.Brand>
           <Nav className="mr-auto">
-            <Form inline>
-                <FormControl type="text" placeholder="Search" />
+            <Form inline onSubmit={handleSubmit(onSubmit)}>
+              <FormControl name="search" type="text" placeholder="Search" ref={register}/>
             </Form>
           </Nav>
           <Nav className="ml-auto">
