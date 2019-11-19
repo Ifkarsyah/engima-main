@@ -29,8 +29,8 @@ export default function NavbarEngima() {
             </Form>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Link href="transactions">Transaction</Nav.Link>
-            <Nav.Link href="login" onClick={logout}>Logout</Nav.Link>
+            <Nav.Link href="transactions" className="text-dark font-weight-bold">Transaction</Nav.Link>
+            <Nav.Link href="login" onClick={logout} className="text-dark font-weight-bold">Logout</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
