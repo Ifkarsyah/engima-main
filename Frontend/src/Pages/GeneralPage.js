@@ -12,11 +12,13 @@ export default function GeneralPage({children, title}) {
   return (
     <>
       <NavbarEngima/>
-      <Container fluid={true}>
+      <Container fluid={true} className="min-vw-100">
         <Row className="justify-content-center">
-          <Col xs={10}>
+          <Col xs={1} className="bg-dark min-vh-100"></Col>
+          <Col xs={10} >
             {children}
           </Col>
+          <Col xs={1} className="bg-dark  min-vh-100"></Col>
         </Row>
       </Container>
     </>
