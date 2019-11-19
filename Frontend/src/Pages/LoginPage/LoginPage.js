@@ -2,10 +2,28 @@ import React from "react";
 import {Button, Form} from "react-bootstrap";
 import useForm from "react-hook-form";
 import {Link} from "react-router-dom";
+import {useHistory} from "react-router";
+import cookies from "../../Utilities/Cookies";
+import {request} from "../../Utilities/Request";
 
 function LoginForm() {
+  let history = useHistory();
   const {register, handleSubmit, errors} = useForm({mode: "onChange"});
-  const onSubmit = submitInfo => console.log(submitInfo);
+  const onSubmit = async jsonBody => {
+    let data = await request('/login',  'POST', jsonBody);
+    /**
+     * @param data.isUserExists
+     * @param data.message
+     * @param data.user
+     */
+    if (data.isUserExists) {
+      cookies.set('username', data.user.username, { path: '/' });
+      cookies.set('userId', data.user.userId, { path: '/' });
+      history.push("/home");
+    } else {
+      alert(data.message);
+    }
+  };
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -22,6 +40,7 @@ function LoginForm() {
               message: "Please insert a valid email address!"
             }
           })}
+          className="border-primary"
         />
         <Form.Text className="text-danger">
           {errors.email && errors.email.message} &nbsp;

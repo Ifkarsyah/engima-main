@@ -24,6 +24,6 @@ export default function GeneralPage({children, title}) {
 }
 
 GeneralPage.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 };

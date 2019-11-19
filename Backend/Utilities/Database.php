@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Utilities;
 
 
@@ -14,7 +13,7 @@ use PDOException;
  */
 class Database
 {
-    private static $instance = null;
+    private static $instance;
     private $conn;
 
     private $queryResult;
@@ -23,7 +22,7 @@ class Database
     /**
      * @return mixed
      */
-    public function getQueryResult()
+    public function getQueryResult(): array
     {
         return $this->queryResult;
     }
@@ -31,7 +30,7 @@ class Database
     /**
      * @return mixed
      */
-    public function getQueryResultCount()
+    public function getQueryResultCount(): int
     {
         return $this->queryResultCount;
     }
@@ -46,6 +45,7 @@ class Database
             $dbHost = DB_HOST;
             $dbName = DB_NAME;
             $this->conn = new PDO("mysql:host={$dbHost};dbname={$dbName}", DB_USER, DB_PASS);
+            $this->queryResult = array();
         } catch (PDOException $e) {
             die($e->getMessage());
         }
@@ -82,7 +82,16 @@ class Database
             $this->queryResult = $currentQuery->fetchAll(PDO::FETCH_OBJ);
             $this->queryResultCount = $currentQuery->rowCount();
         }
-
         return $this;
+    }
+
+    public function selectFirst($sqlStatement, array $params = [])
+    {
+        $this->execute($sqlStatement, $params);
+        if (isset($this->getQueryResult()[0]))
+        {
+            return (array) $this->getQueryResult()[0];
+        }
+        return null;
     }
 }

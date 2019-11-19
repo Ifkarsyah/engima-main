@@ -14,7 +14,7 @@ class MoviesServicesReview extends BaseModel
 {
     public function getMovieFromTransaction($transactionID)
     {
-        $result = $this->dbLocal->execute(
+        $result = $this->db->execute(
             "SELECT m.id, m.title 
                          FROM transactions t JOIN schedules s ON t.schedule_id = s.id
                             JOIN movies m ON s.movie_id = m.id
@@ -26,7 +26,7 @@ class MoviesServicesReview extends BaseModel
 
     public function insertNewComment($transactionID, $movie_id, $rating, $comment)
     {
-        $this->dbLocal->execute(
+        $this->db->execute(
             "INSERT INTO reviews (transaction_id, movie_id, rating, comment) 
                          VALUES (:transactionID, :movieID, :rating, :comment)",
             [
@@ -37,21 +37,21 @@ class MoviesServicesReview extends BaseModel
             ]
         );
 
-        $rated = $this->dbLocal->execute(
+        $rated = $this->db->execute(
             "SELECT rating FROM movies WHERE movie_id = :movieID",['movieID' => $movie_id]
         );
         $rated = $rated->getQueryResult()[0]->rating;
 
         if ($rated)
         {
-            $this->dbLocal->execute(
+            $this->db->execute(
                 "UPDATE movies SET rating = (rating * numRating + :newRating)/( numRating + 1) WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
                     'newRating' => ($rating + 'rating')
                 ]
             );
-            $this->dbLocal->execute(
+            $this->db->execute(
                 "UPDATE movies SET numRating = ( :numRating + 1 ) WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
@@ -61,14 +61,14 @@ class MoviesServicesReview extends BaseModel
         }
         else
         {
-            $this->dbLocal->execute(
+            $this->db->execute(
                 "UPDATE movies SET rating = :newRating WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
                     'newRating' => $rating
                 ]
             );
-            $this->dbLocal->execute(
+            $this->db->execute(
                 "UPDATE movies SET (numRating = 1) WHERE id = :movieID",
                 [
                     'movieID' => $movie_id,
