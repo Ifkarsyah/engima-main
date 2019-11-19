@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
 import Switch from "react-bootstrap/cjs/Switch";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import GeneralPage from "./Pages/GeneralPage";
@@ -11,6 +11,7 @@ import MovieDetailPage from "./Pages/MovieDetailPage/MovieDetailPage";
 import ReviewPage from "./Pages/ReviewPage/ReviewPage";
 import BookingPage from "./Pages/BookingPage/BookingPage";
 import GeneralForm from "./Components/Navbar/GeneralForm";
+import SearchPage from "./Pages/SearchPage/SearchPage";
 
 function Switcher() {
   return (
@@ -30,6 +31,12 @@ function Switcher() {
       <Route path="/home">
         <GeneralPage title="Homepage">
           <HomePage/>
+        </GeneralPage>
+      </Route>
+
+      <Route path="/search">
+        <GeneralPage title="Search">
+          <SearchPage/>
         </GeneralPage>
       </Route>
 
