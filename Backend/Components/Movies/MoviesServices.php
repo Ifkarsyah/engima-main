@@ -21,7 +21,7 @@ class MoviesServices extends BaseModel
 
     public function getListScheduleByMovieID($movieID)
     {
-        $result = $this->dbLocal->execute("
+        $result = $this->db->execute("
                         SELECT schedules.id, date_time, available_seats 
                         FROM schedules 
                         WHERE schedules.movie_id = :movieID AND date_time >= NOW()
@@ -45,7 +45,7 @@ class MoviesServices extends BaseModel
      */
     public function getListReviewByMovieID($movieID)
     {
-        $result = $this->dbLocal->execute(
+        $result = $this->db->execute(
             "SELECT u.username, u.profile_pic, rating, comment
                          FROM 
                               reviews r JOIN transactions t on r.transaction_id = t.id 
@@ -61,7 +61,7 @@ class MoviesServices extends BaseModel
 
     public function getMovieDetailByMovieID($movieID)
     {
-        $result = $this->dbLocal->execute(
+        $result = $this->db->execute(
                 "SELECT m.id, m.title, m.duration, m.released_date, m.plot, m.poster, m.rating, GROUP_CONCAT(g.name) AS genres
                              FROM movies m JOIN movie_genres mg ON m.id = mg.movie_id JOIN genres g ON mg.genre_id = g.id
                              WHERE m.id = :movieID

@@ -14,7 +14,7 @@ class ReviewsModel extends BaseModel
 {
     public function getTransactionHistory($userID)
     {
-        $result = $this->dbLocal->execute(
+        $result = $this->db->execute(
             "SELECT t.id, s.movie_id, m.title, m.poster, s.date_time 
                          FROM transactions t JOIN schedules s ON t.schedule_id = s.id
                                 JOIN movies m on s.movie_id = m.id
@@ -32,7 +32,7 @@ class ReviewsModel extends BaseModel
 
     private function isReviewExists($transactionID)
     {
-        $result = $this->dbLocal->execute(
+        $result = $this->db->execute(
             "SELECT reviews.transaction_id FROM reviews WHERE transaction_id = :transactionID",
             ['transactionID' => $transactionID]
         );
@@ -41,7 +41,7 @@ class ReviewsModel extends BaseModel
 
     public function deleteReview($transactionID)
     {
-        $this->dbLocal->execute(
+        $this->db->execute(
             "DELETE FROM reviews WHERE transaction_id = :transactionID",
             ['transactionID' => $transactionID]
         );

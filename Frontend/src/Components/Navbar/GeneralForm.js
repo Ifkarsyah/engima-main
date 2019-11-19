@@ -13,7 +13,7 @@ export default function GeneralForm({children, title}) {
     <Container fluid={true}>
       <Row className="justify-content-center align-items-center min-vh-100">
         <Col xs={12} md={4}>
-          <Card>
+          <Card className="shadow-lg border-white">
             <Card.Body>
               <h3 className="text-center mt-4 mb-5">
                 <span>Welcome to </span>
@@ -30,6 +30,6 @@ export default function GeneralForm({children, title}) {
 }
 
 GeneralForm.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired
 };

@@ -12,10 +12,10 @@ use Utilities\Database;
  */
 class BaseModel
 {
-    protected $dbLocal;
+    protected $db;
 
     public function __construct()
     {
-        $this->dbLocal = Database::getInstance();
+        $this->db = Database::getInstance();
     }
 }
