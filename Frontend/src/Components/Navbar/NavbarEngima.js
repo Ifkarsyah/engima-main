@@ -17,7 +17,7 @@ export default function NavbarEngima() {
     <>
       <Navbar bg="white" fixed="top">
         <Container className="px-5">
-          <Navbar.Brand href="home">
+          <Navbar.Brand href="/home">
             <strong>
               <span className="text-primary">Engi</span>
               <span>ma</span>
@@ -29,8 +29,8 @@ export default function NavbarEngima() {
             </Form>
           </Nav>
           <Nav className="ml-auto">
-            <Nav.Link href="transactions" className="text-dark font-weight-bold">Transaction</Nav.Link>
-            <Nav.Link href="login" onClick={logout} className="text-dark font-weight-bold">Logout</Nav.Link>
+            <Nav.Link href="/transactions" className="text-dark font-weight-bold">Transaction</Nav.Link>
+            <Nav.Link href="/login" onClick={logout} className="text-dark font-weight-bold">Logout</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

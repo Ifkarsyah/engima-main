@@ -1,23 +1,23 @@
 import React, {useEffect, useState} from "react";
 import Container from "react-bootstrap/Container";
-import {MovieDbAPI, movieDBRequest} from "../../Utilities/MovieDB";
+import {MovieDbAPI} from "../../Utilities/MovieDB";
 import Image from "react-bootstrap/Image";
 import {Link} from "react-router-dom";
+import cookies from "../../Utilities/Cookies";
+import {Engima} from "../../Utilities/Engima";
 
 export default function HomePage() {
-  const [username, setUsername] = useState('');
-  useEffect(() => {
-    (async () => {
-      const pathUrl = '/movie/now_playing';
-      const language = 'en-US';
-      const page = 1;
-      const params = `?api_key=${MovieDbAPI.apiKey}&language=${language}&page=${page}`;
-      const totalUrl = MovieDbAPI.baseUrl + pathUrl + params;
-      const response = await fetch(totalUrl);
-      const body = await response.json();
-      setUsername(body.token);
-    })();
-  }, []);
+  const [username, setUsername] = useState('default username');
+  // useEffect(() => {
+  //   (async () => {
+  //     const pathUrl = '/token/username';
+  //     const params = `?token=${cookies.get('token')}`;
+  //     const totalUrl = Engima.baseUrl + pathUrl + params;
+  //     const response = await fetch(totalUrl);
+  //     const body = await response.json();
+  //     setUsername(body.token);
+  //   })();
+  // }, []);
   return (
     <Container fluid={true}>
       <h3 className="mt-3 mb-4">
@@ -35,23 +35,21 @@ function MoviesList() {
 
   useEffect(() => {
     (async () => {
-      const pathUrl = '/movie/now_playing';
-      const language = 'en-US';
-      const page = 1;
-      const params = `?api_key=${MovieDbAPI.apiKey}&language=${language}&page=${page}`;
+      const pathUrl = '/discover/movie';
+      let params = `?api_key=${MovieDbAPI.apiKey}`;
+      params += '&primary_release_date.gte=2019-11-12&primary_release_date.lte=2019-11-26&sort_by=popularity.desc';
       const totalUrl = MovieDbAPI.baseUrl + pathUrl + params;
       const response = await fetch(totalUrl);
       const body = await response.json();
-      setMovieList(body.results);
+      setMovieList(body.results.filter(movie => (movie['poster_path'] !== null)));
     })();
   }, []);
-  const baseURLImage = "https://image.tmdb.org/t/p/w154";
   return (
     <Container fluid={true} className="d-flex flex-wrap font-weight-bold">
       {movieList.map(movie => (
         <div key={movie['id']} className="m-3" style={{width: '154px'}}>
           <Link to={"/movies/" + movie['id']}>
-            <Image src={baseURLImage + movie['poster_path']} rounded fluid style={{width: '154px'}}/>
+            <Image src={MovieDbAPI.baseUrlImage + movie['poster_path']} rounded fluid style={{width: '154px'}}/>
           </Link>
           <p className="mb-0" style={{width: '154px'}}>{movie['title']}</p>
           <div style={{height:'17px'}} className="d-flex">
