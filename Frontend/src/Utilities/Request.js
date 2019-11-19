@@ -1,7 +1,7 @@
-import {engimaUrl} from "../constant";
+import {Engima} from "./Engima";
 
 export const request = async (url, method, jsonBody) => {
-  let response = await fetch(engimaUrl + url, {
+  let response = await fetch(Engima.baseUrl + url, {
     method: method,
     headers: {
       'Accept': 'application/json',

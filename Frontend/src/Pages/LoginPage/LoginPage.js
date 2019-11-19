@@ -11,11 +11,6 @@ function LoginForm() {
   const {register, handleSubmit, errors} = useForm({mode: "onChange"});
   const onSubmit = async jsonBody => {
     let data = await request('/login',  'POST', jsonBody);
-    /**
-     * @param data.isUserExists
-     * @param data.message
-     * @param data.user
-     */
     if (data.isUserExists) {
       cookies.set('username', data.user.username, { path: '/' });
       cookies.set('userId', data.user.userId, { path: '/' });
