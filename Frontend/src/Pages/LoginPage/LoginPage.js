@@ -12,8 +12,7 @@ function LoginForm() {
   const onSubmit = async jsonBody => {
     let data = await request('/login',  'POST', jsonBody);
     if (data.isUserExists) {
-      cookies.set('username', data.user.username, { path: '/' });
-      cookies.set('userId', data.user.userId, { path: '/' });
+      cookies.set('token', data.token, { path: '/' });
       history.push("/home");
     } else {
       alert(data.message);

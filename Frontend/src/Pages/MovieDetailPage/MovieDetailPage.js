@@ -8,6 +8,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
+import cookies from "../../Utilities/Cookies";
+import {Engima} from "../../Utilities/Engima";
 
 export default function MovieDetail() {
   const {movieId} = useParams();
@@ -28,7 +30,6 @@ export default function MovieDetail() {
   }, []);
   return (
     <Container fluid={true}>
-
       <Row className="mb-5">
         <Col xs={3}>
           <Image src={MovieDbAPI.baseUrlImage + movie['poster_path']} rounded fluid style={{width: '154px'}}/>
@@ -105,7 +106,29 @@ export default function MovieDetail() {
           </Card>
         </Col>
       </Row>
-
+      {console.log(movie['release_date'])}
+      <MovieScheduleList movieId={movieId} movieReleaseDate={movie['release_date']}/>
     </Container>
   );
+}
+
+function MovieScheduleList({movieId, movieReleaseDate}) {
+  useEffect(() => {
+    (async () => {
+      try {
+        if (movieReleaseDate !== undefined)
+        {
+          const pathUrl = '/movies/' + movieId + '/schedules';
+          const totalUrl = Engima.baseUrl + pathUrl + '?release_date=' + movieReleaseDate;
+          const response = await fetch(totalUrl);
+          const body = await response.json();
+          console.log(body);
+          console.log(movieReleaseDate);
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    })();
+  }, [movieReleaseDate]);
+  return <h1>{movieReleaseDate}</h1>;
 }
