@@ -4,7 +4,7 @@ namespace Components\User;
 
 use Components\User\UserService;
 use Core\BaseController;
-
+use \Firebase\JWT\JWT;
 
 /**
  * Class UserController
@@ -32,20 +32,35 @@ class UserController extends BaseController
                 'message' => 'username or password not in database'
             ));
         } else {
+            $payload = array(
+                "sub" => $user['id'],
+                "username" => $user['username'],
+                "exp" => time() + 3600,
+            );
+            $token = JWT::encode($payload, ENGIMA_TOKEN_SECRET);
             echo json_encode(array(
                 'isUserExists' => true,
-                'user' => $user
+                'token' => $token
             ));
         }
     }
 
     public function register(array $requestBody)
     {
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $phone = $_POST['phone'];
-        $password = $_POST['password'];
-        $profilePic = $_FILES['profilePic'];
         echo $requestBody;
+    }
+
+    public function getUsername($token)
+    {
+        if (!isset($token))
+        {
+            http_response_code(400);
+            exit();
+        }
+        $decoded = JWT::decode($token, ENGIMA_TOKEN_SECRET, array('HS256'));
+        http_response_code(200);
+        echo json_encode(array(
+           'username' => $decoded->username
+        ));
     }
 }
