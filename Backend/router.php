@@ -9,7 +9,6 @@ spl_autoload_register(function ($className) {
     require_once $className . '.php';
 });
 
-$router = new Router();
 
 function getJsonBody(): array
 {
@@ -25,67 +24,74 @@ function cors(): void
     header('Access-Control-Allow-Credentials: true');
 }
 
-$router->options('/.*', function () {
+$publicRoute = new Router();
+$publicRoute->options('/.*', function () {
     cors();
 });
 
-$router->before('GET|POST|UPDATE|DELETE', '/.*', function() {
+$publicRoute->before('GET|POST|UPDATE|DELETE', '/.*', function() {
     cors();
 });
 
-$router->mount('', function () use ($router) {
+$publicRoute->mount('', function () use ($publicRoute) {
     $userRoute = new Components\User\UserController();
-    $router->post('/login', function () use ($userRoute, $router) {
+    $publicRoute->post('/login', function () use ($userRoute, $publicRoute) {
         $userRoute->login(getJsonBody());
     });
 
-    $router->post('/register', function () use ($userRoute, $router) {
+    $publicRoute->post('/register', function () use ($userRoute, $publicRoute) {
         $userRoute->register($_POST);
     });
 });
+$publicRoute->run();
 
-$router->mount('', function () use ($router) {
-    $router->mount('/movies', function () use ($router) {
+/////////////////////////////////////// PRIVATE ROUTE //////////////////////////////////////////
+$privateRoute = new Router();
+$privateRoute->options('/.*', function () {
+    cors();
+});
+
+$privateRoute->before('GET|POST|UPDATE|DELETE', '/.*', function() {
+    cors();
+});
+
+
+$privateRoute->get('/user/username', function () use ($privateRoute){
+    $userRoute = new Components\User\UserController();
+    $userRoute->getUsername($_GET['token']);
+});
+
+$privateRoute->mount('', function () use ($privateRoute) {
+    $privateRoute->mount('/movies', function () use ($privateRoute) {
         $moviesController = new Components\Movies\MoviesController();
-
-        $router->get('/', function () use ($moviesController) {
-            if (isset($_GET['keyword'])) {
-                $moviesController->search($_GET['keyword'], $_GET['offset']);
-            } else {
-                $moviesController->showHomepage();
+        $privateRoute->get('/(\d+)/schedules', function ($movieId) use ($moviesController) {
+            if (!isset($_GET['release_date']))
+            {
+                http_response_code(400);
+                exit();
             }
+            $moviesController->getAvailableSchedules($movieId, $_GET['release_date']);
         });
-
-        $router->get('/(\d+)', function ($movieId) use ($moviesController) {
-            $moviesController->getDetail($movieId);
-        });
-
-        $router->get('/(\d+)/schedules', function ($movieId) use ($moviesController) {
-            $moviesController->getAvailableSchedules($movieId);
-        });
-
-        $router->get('/(\d+)/reviews', function ($movieId) use ($moviesController) {
+        $privateRoute->get('/(\d+)/reviews', function ($movieId) use ($moviesController) {
             $moviesController->getReviewUser($movieId);
         });
     });
-
-    $router->mount('/schedules', function () use ($router) {
+    $privateRoute->mount('/schedules', function () use ($privateRoute) {
         $scheduleController = new Components\Schedules\ScheduleController();
-        $router->get('/(\d+)', function ($scheduleId) use ($scheduleController) {
+        $privateRoute->get('/(\d+)', function ($scheduleId) use ($scheduleController) {
             $scheduleController->getDetail($scheduleId);
         });
     });
-
-    $router->mount('reviews', function () use ($router) {
+    $privateRoute->mount('reviews', function () use ($privateRoute) {
         $reviewsController = new Components\Reviews\ReviewsController();
-        $router->post('/user/(\d+)/schedule/(\d+)', function ($userId, $scheduleId) use ($reviewsController) {
+        $privateRoute->post('/user/(\d+)/schedule/(\d+)', function ($userId, $scheduleId) use ($reviewsController) {
             $comment = $_POST['comment'];
             $reviewsController->addReview($userId, $scheduleId, $comment);
         });
-        $router->delete('/(\d+)', function ($reviewId) use ($reviewsController) {
+        $privateRoute->delete('/(\d+)', function ($reviewId) use ($reviewsController) {
             $comment = $_POST['comment'];
             $reviewsController->deleteReview($reviewId);
         });
     });
 });
-$router->run();
+$privateRoute->run();

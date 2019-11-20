@@ -4,15 +4,20 @@
 namespace Components\Schedules;
 
 
-class ScheduleController
+use Core\BaseController;
+
+class ScheduleController extends BaseController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        require_once 'ScheduleServices.php';
+        $this->services = new ScheduleServices();
+    }
+
     public function getDetail(int $scheduleId): void
     {
-        $scheduleDetail = array(
-            'datetime' => 'October 2, 2019 - 02.00 PM',
-            'title' => 'Joker',
-            'seat' => 31412512
-        );
+        $scheduleDetail = $this->services->getScheduleDetail($scheduleId);
         if (count($scheduleDetail) === 0) {
             http_response_code(204);
             echo json_encode(array(

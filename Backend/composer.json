@@ -4,6 +4,6 @@
     "ext-json": "*",
     "ext-pdo": "*",
     "rbdwllr/reallysimplejwt": "^2.1",
-    "ext-apache": "*"
+    "firebase/php-jwt": "^5.0"
   }
 }

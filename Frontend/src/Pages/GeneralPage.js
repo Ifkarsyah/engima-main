@@ -12,10 +12,10 @@ export default function GeneralPage({children, title}) {
   return (
     <>
       <NavbarEngima/>
-      <Container fluid={true} className="min-vw-100">
+      <Container fluid={true} className="min-vw-100 mt-5">
         <Row className="justify-content-center">
           <Col xs={1} className="bg-dark min-vh-100"></Col>
-          <Col xs={10} >
+          <Col xs={10} className="pt-3">
             {children}
           </Col>
           <Col xs={1} className="bg-dark  min-vh-100"></Col>

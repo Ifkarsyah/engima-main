@@ -94,4 +94,25 @@ class Database
         }
         return null;
     }
+
+    public function insert($sqlStatement, array $params = [])
+    {
+        $this->execute($sqlStatement, $params);
+    }
+
+    public function select($sqlStatement, array $params = [])
+    {
+        $this->execute($sqlStatement, $params);
+        if (isset($this->getQueryResult()[0]))
+        {
+            $result = array();
+            foreach ($this->getQueryResult() as $i => $row)
+            {
+                $a = (array) $this->getQueryResult()[$i];
+                array_push($result, $a);
+            }
+            return $result;
+        }
+        return null;
+    }
 }

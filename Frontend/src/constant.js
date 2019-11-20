@@ -1,1 +1,0 @@
-export const engimaUrl = 'http://localhost/engima/Backend';

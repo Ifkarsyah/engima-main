@@ -5,6 +5,7 @@ namespace Components\Movies;
 
 
 use Core\BaseController;
+use Models\MoviesServices;
 
 /**
  * Class MoviesController
@@ -12,73 +13,19 @@ use Core\BaseController;
  */
 class MoviesController extends BaseController
 {
-    public function search($keyword, $offset)
+    public function __construct()
     {
-        if (!isset($offset)) {
-            $offset = 1;
+        parent::__construct();
+        require_once 'MoviesServices.php';
+        $this->services = new MoviesServices();
+    }
+    public function getAvailableSchedules($movieId, $releaseDate)
+    {
+        if (!$this->services->isExistsMovieId($movieId))
+        {
+            $this->services->generate($movieId, $releaseDate);
         }
-    }
-
-    public function showHomepage()
-    {
-        $movieList = array(
-            1 => array(
-                'movieId' => 1,
-                'title' => 'Sample title',
-                'rating' => 8, 5,
-                'poster' => 'https://picsum.photos/200'
-            ),
-            2 => array(
-                'movieId' => 1,
-                'title' => 'Sample title',
-                'rating' => 8.5,
-                'poster' => 'https://picsum.photos/200'
-            ),
-            3 => array(
-                'movieId' => 1,
-                'title' => 'Sample title',
-                'rating' => 8.5,
-                'poster' => 'https://picsum.photos/200'
-            ),
-            4 => array(
-                'movieId' => 1,
-                'title' => 'Sample title',
-                'rating' => 8.5,
-                'poster' => 'https://picsum.photos/200'
-            ),
-        );
-        http_response_code(200);
-        echo json_encode($movieList);
-    }
-
-    public function getDetail($movieId)
-    {
-        $movieDetail =  array(
-            'poster' => 'https://picsum.photos/200',
-            'title' => 'Joker',
-            'releasedDate' => '2019-10-2',
-            'rating' => 8.5,
-            'duration' => 182,
-            'plot' => 'lorem ipsum dolor sit amet'
-        );
-        http_response_code(200);
-        echo json_encode($movieDetail);
-    }
-
-    public function getAvailableSchedules($movieId)
-    {
-        $schedules =  array(
-            1 => array(
-                'scheduleId' => 1,
-                'time' => '20:20',
-                'availableSeat' => 20,
-            ),
-            2 => array(
-                'scheduleId' => 1,
-                'time' => '20:20',
-                'availableSeat' => 20,
-            ),
-        );
+        $schedules = $this->services->getMovieSchedules($movieId);
         http_response_code(200);
         echo json_encode($schedules);
     }
