@@ -42,8 +42,24 @@ export default function BookingPage() {
     })();
   }, []);
 
-  const handleSubmit = () => {
-    alert(selected);
+  const handleSubmit = async () => {
+    const url = 'http://aspire-e5-475g:8080/CalculatorWSApplication/CalculatorWS?wsdl';
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/xml'
+      },
+      body: '<?xml version="1.0" encoding="UTF-8"?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">\n' +
+        '    <SOAP-ENV:Header/>\n' +
+        '    <S:Body>\n' +
+        '        <ns2:hello xmlns:ns2="http://calculator.me.org/">\n' +
+        '            <name>name</name>\n' +
+        '        </ns2:hello>\n' +
+        '    </S:Body>\n' +
+        '</S:Envelope>'
+    });
+    const body = await response.text();
+    console.log(body);
   };
 
   const handleClick = (num) => {
