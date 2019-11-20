@@ -64,7 +64,7 @@ export default function MovieDetail() {
 
       <Row className="justify-content-between">
         <Col xs={7}>
-          <MovieScheduleList movieId={movieId} movieReleaseDate={movie['release_date']}/>
+          <MovieScheduleList movieId={movieId} movieReleaseDate={movie['release_date']} title={movie['title']}/>
         </Col>
 
         <Col xs={5}>
@@ -80,7 +80,7 @@ export default function MovieDetail() {
   );
 }
 
-function MovieScheduleList({movieId, movieReleaseDate}) {
+function MovieScheduleList({movieId, movieReleaseDate, title}) {
   const [scheduleList, setScheduleList] = useState([]);
   useEffect(() => {
     (async () => {
@@ -133,8 +133,8 @@ function MovieScheduleList({movieId, movieReleaseDate}) {
               <td>{schedule['time']}</td>
               <td>{schedule['availableSeats']}</td>
               <td className="text-primary font-weight-bolder">
-                <Link to={"/booking/" + schedule['schedule_id']}>
-                  <span className="mr-2">Book Now</span>
+                <Link to={"/booking/" + schedule['schedule_id'] + '?title=' + title}>
+                  <span className="mr-2" style={{ textDecoration: 'none' }}>Book Now</span>
                   <span className="bg-primary text-white rounded-circle h-100 vh-100">
                 &nbsp;&#8250;&nbsp;
               </span>
