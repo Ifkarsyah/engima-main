@@ -1,0 +1,9 @@
+{
+  "require": {
+    "bramus/router": "~1.4",
+    "ext-json": "*",
+    "ext-pdo": "*",
+    "rbdwllr/reallysimplejwt": "^2.1",
+    "firebase/php-jwt": "^5.0"
+  }
+}
