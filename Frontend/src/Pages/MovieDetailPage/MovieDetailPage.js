@@ -133,7 +133,7 @@ function MovieScheduleList({movieId, movieReleaseDate, title}) {
               <td>{schedule['time']}</td>
               <td>{schedule['availableSeats']}</td>
               <td className="text-primary font-weight-bolder">
-                <Link to={"/booking/" + schedule['schedule_id'] + '?title=' + title}>
+                <Link to={"/booking/" + schedule['schedule_id'] + '?title=' + title + '&movieId=' + movieId}>
                   <span className="mr-2" style={{ textDecoration: 'none' }}>Book Now</span>
                   <span className="bg-primary text-white rounded-circle h-100 vh-100">
                 &nbsp;&#8250;&nbsp;
