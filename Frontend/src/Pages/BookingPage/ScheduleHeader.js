@@ -6,7 +6,7 @@ import React from "react";
 
 export function ScheduleHeader(props) {
   return <>
-    <Row className="mb-5 mt-5">
+    <Row className="mb-5 mt-5" style={{opacity: (props.finishTransaction && 0.5)}}>
       <Col xs={1} className="d-flex flex-column justify-content-center">
         <Link to={"/movies/" + props.schedule["movie_id"]} style={{textDecoration: "none"}}>
           <span className="text-primary" style={{fontSize: "30px"}}>❮</span>

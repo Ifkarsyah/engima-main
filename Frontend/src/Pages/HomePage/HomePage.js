@@ -9,12 +9,12 @@ import * as PropTypes from "prop-types";
 import {MovieRating} from "./MovieRating";
 
 export default function HomePage() {
-  const [username, setUsername] = useState('default username');
+  const [username, setUsername] = useState('');
   const history = useHistory();
   useEffect(() => {
     (async () => {
       try {
-        const pathUrl = '/user/username';
+        const pathUrl = '/user/logged';
         const params = `?token=${cookies.get('token')}`;
         const totalUrl = Engima.baseUrl + pathUrl + params;
         const response = await fetch(totalUrl);
