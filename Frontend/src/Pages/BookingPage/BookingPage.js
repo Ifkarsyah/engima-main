@@ -95,7 +95,7 @@ export default function BookingPage() {
         movieId: urlQueries['movieId'],
         seat: selected,
         vaReceiver: vaReceiver,
-        movieSchedule: scheduleId
+        movieSchedule: schedule["date"] + " - " + schedule["time"]
       })
     });
     const bodyNode = await responseNode.json();

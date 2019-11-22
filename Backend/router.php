@@ -56,9 +56,9 @@ $privateRoute->before('GET|POST|UPDATE|DELETE', '/.*', function() {
 });
 
 
-$privateRoute->get('/user/username', function () use ($privateRoute){
+$privateRoute->get('/user/logged', function () use ($privateRoute){
     $userRoute = new Components\User\UserController();
-    $userRoute->getUsername($_GET['token']);
+    $userRoute->getLoggedInUser($_GET['token']);
 });
 
 $privateRoute->mount('', function () use ($privateRoute) {
