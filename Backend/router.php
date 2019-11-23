@@ -81,8 +81,8 @@ $privateRoute->mount('', function () use ($privateRoute) {
         $privateRoute->get('/(\d+)', function ($scheduleId) use ($scheduleController) {
             $scheduleController->getDetail($scheduleId);
         });
-        $privateRoute->put('/seat/', function () use($scheduleController) {
-            $scheduleController->updateSeats(getJsonBody());
+        $privateRoute->post('/(\d+)/seat/', function ($scheduleId) use($scheduleController) {
+            $scheduleController->updateSeats($scheduleId, getJsonBody());
         });
     });
     $privateRoute->mount('reviews', function () use ($privateRoute) {

@@ -24,7 +24,7 @@ class ScheduleServices extends BaseModel
     {
         $this->db->update(
             "UPDATE schedules
-                         SET seats = (seats & (~(1 << (30 - $seat)))
+                         SET seats = (seats & (~(1 << (30 - $seat))))
                          WHERE id = :scheduleId",
             [':scheduleId' => $scheduleId]
         );

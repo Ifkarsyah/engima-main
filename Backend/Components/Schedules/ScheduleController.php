@@ -26,18 +26,20 @@ class ScheduleController extends BaseController
         echo json_encode($scheduleDetail);
     }
 
-    public function updateSeats(array $requestBody): void
+    public function updateSeats($scheduleId, array $requestBody): void
     {
-        list('action' => $action, 'seat' => $seat, 'scheduleId' => $scheduleId) = $requestBody;
+        list('action' => $action, 'seat' => $seat) = $requestBody;
         if ($action === 'reserve')
         {
             $this->services->reserve($scheduleId, $seat);
             http_response_code(200);
+            echo json_encode(array('message' => 'reserve success'));
         }
         else if ($action === 'release')
         {
             $this->services->release($scheduleId, $seat);
             http_response_code(200);
+            echo json_encode(array('message' => 'release success'));
         } else {
             http_response_code(400);
             echo json_encode(array('message' => 'action not defined'));

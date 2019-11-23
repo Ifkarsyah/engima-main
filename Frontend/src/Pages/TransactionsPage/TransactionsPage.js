@@ -1,92 +1,78 @@
 import React, {useEffect, useState} from "react";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
-import {MovieDbAPI} from "../../Utilities/MovieDB";
-import {Link} from "react-router-dom";
+import {moviedb_GetMovieDetail} from "../../Utilities/MovieDB";
 import Container from "react-bootstrap/Container";
-import cookies from "../../Utilities/Cookies";
-import {Engima} from "../../Utilities/Engima";
-import Button from "react-bootstrap/Button";
-import $ from "jquery";
+import {getUserIdFromEngima} from "../../Utilities/Engima";
+import {WS_Transaksi} from "../../Utilities/WS_Transaksi";
+import {soapCall} from "../../Utilities/WS_Bank";
+import {UserTransaction} from "./UserTransaction";
 
 export default function TransactionsPage() {
   const [transactionList, setTransactionList] = useState([]);
   const [loaded, setLoaded] = useState(false);
+
   useEffect(() => {
     (async () => {
-      let userId = "";
+      let userId = await getUserIdFromEngima();
 
-      const pathUrl = '/user/logged';
-      const params = `?token=${cookies.get('token')}`;
-      const totalUrl = Engima.baseUrl + pathUrl + params;
-      const responseEngima = await fetch(totalUrl);
-      const bodyEngima = await responseEngima.json();
-      userId = bodyEngima.userId;
-
-      const responseNode = await fetch('http://localhost:5000/transaction/' + userId);
-      const bodyNode = await responseNode.json();
-      console.log(bodyNode);
-
-      for (let i = 0; i < bodyNode.length; i++){
-        const pathUrl = '/movie/' + bodyNode[i]['movie_id'];
-        let params = `?api_key=${MovieDbAPI.apiKey}`;
-        const totalUrl = MovieDbAPI.baseUrl + pathUrl + params;
-        const response = await fetch(totalUrl);
-        const bodyAPI = await response.json();
-        bodyNode[i]['poster_path'] = bodyAPI['poster_path'];
-        bodyNode[i]['title'] = bodyAPI['title'];
+      const responseWS_Transaksi = await fetch(WS_Transaksi.baseUrl + '/transaction/' + userId);
+      const userTransactions = await responseWS_Transaksi.json();
+      for (let i = 0; i < userTransactions.length; i++){
+        // for each transaction found, get the title f
+        const movieDetail = await moviedb_GetMovieDetail(userTransactions[i]['movie_id']);
+        userTransactions[i]['poster_path'] = movieDetail['poster_path'];
+        userTransactions[i]['title'] = movieDetail['title'];
 
         // check
-        console.log('bbb');
-        console.log(bodyNode);
-        const transactionId = bodyNode[i]['id'];
-        console.log(transactionId);
-        if (bodyNode[i]['status'] === 'PENDING') {
-          const urlWSBank = 'http://localhost:8080/ws-bank/Bank?WSDL';
-          const responseWSBank = await fetch(urlWSBank, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'text/xml'
-            },
-            body: '<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n' +
-              '    <soap:Body>\n' +
-              '        <ns0:isExistTransaction xmlns:ns0="http://wsbank.org/">\n' +
-              `            <billReceiver>${bodyAPI['va_receiver']}</billReceiver>\n` +
-              `            <amount>${45000}</amount>\n` +
-              `            <startTime>${bodyAPI['created_on']}</startTime>\n` +
-              `            <endTime>${bodyAPI['created_on'] + 120}</endTime>\n` +
-              '        </ns0:isExistTransaction>\n' +
-              '    </soap:Body>\n' +
-              '</soap:Envelope>\n'
-          });
-          const body = await responseWSBank.text();
-          const xmlResp = $($.parseXML(body));
+        const transactionId = userTransactions[i]['id'];
+        const transactionTime = Date.parse(userTransactions[i]['created_on']);
+        const virtual_account = userTransactions[i]['va_receiver'];
+
+
+        if (userTransactions[i]['status'] === 'PENDING') {
+          const xmlResp = await soapCall(
+            '<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n' +
+            '    <soap:Body>\n' +
+            '        <ns0:isExistTransaction xmlns:ns0="http://wsbank.org/">\n' +
+            `            <billReceiver>${virtual_account}</billReceiver>\n` +
+            `            <billSender>${10000001}</billSender>\n` +
+            `            <amount>${45000}</amount>\n` +
+            `            <startTime>${transactionTime - 1}</startTime>\n` +
+            `            <endTime>${transactionTime + 1200000000000000}</endTime>\n` +
+            '        </ns0:isExistTransaction>\n' +
+            '    </soap:Body>\n' +
+            '</soap:Envelope>\n'
+          );
           const isExist = xmlResp.find("return").text();
-          let updateStatusRequest = '';
-          if (isExist === "true") {
-            updateStatusRequest = "SUCCESS";
+          let updateStatusRequest = "PENDING";
+          console.log('isExist', isExist);
+          console.log(transactionTime);
+          console.log('minute', Date.now() - transactionTime);
+          if (Date.now() - transactionTime <= 1200000) {
+            if (isExist === "true") {
+              updateStatusRequest = "SUCCESS";
+            }
           } else {
-            updateStatusRequest = "CANCELLED";
+            if (isExist === "false") {
+              updateStatusRequest = "CANCELLED";
+            }
           }
 
-
-          const responseNode2 = await fetch('http://localhost:5000/transaction/' + transactionId, {
-            method: 'PUT',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json;charset=UTF-8',
-            },
-            body: JSON.stringify({
-              status: updateStatusRequest
-            })
-          });
-          const bodyNode = await responseNode2.json();
-          console.log(bodyNode);
+          if (updateStatusRequest !== "PENDING") {
+            const responseNode2 = await fetch(WS_Transaksi.baseUrl + '/transaction/' + transactionId, {
+              method: 'PUT',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json;charset=UTF-8',
+              },
+              body: JSON.stringify({status: updateStatusRequest})
+            });
+            const bodyNode = await responseNode2.json();
+            console.log(bodyNode);
+          }
         }
       }
 
-      setTransactionList(bodyNode);
+      setTransactionList(userTransactions);
       setLoaded(true);
     })();
   },[]);
@@ -95,63 +81,13 @@ export default function TransactionsPage() {
     return <p>Loading...</p>
   }
 
-  const TransactionStatus = ({status}) => {
-    if (status === "PENDING") {
-      return <Button variant="light">PENDING</Button>
-    }
-    if (status === "CANCELLED") {
-      return <Button variant="danger">CANCELLED</Button>
-    }
-    if (status === "SUCCESS") {
-      return <Button variant="success">SUCCESS</Button>
-    }
-  }
-
   return (
     <Container fluid={true}>
       <h2 className="font-weight-bold">TransactionHistory</h2>
       {transactionList.map(transaction => (
-        <>
-          <Row className="my-4">
-            <Col xs={2}>
-              <Image src={MovieDbAPI.baseUrlImage + transaction['poster_path']} rounded fluid style={{width: '154px'}}/>
-            </Col>
-            <Col xs={6} className="d-flex flex-column justify-content-center">
-              <h5 className="font-weight-bolder">{transaction['title']}</h5>
-              <p className="font-weight-bolder">
-                <span className="text-primary">Movie Schedule: </span>
-                {transaction['movie_schedule']}
-              </p>
-              <p className="font-weight-bolder">
-                <span className="text-primary">Transaction Time: </span>
-                {transaction['created_on']}
-              </p>
-              <TransactionStatus status={transaction['status']} />
-            </Col>
-            <Col xs={4} className="position-relative">
-              <AddComment transactionStatus={transaction['status']} existsComment={true} transactionId={transaction['id']} />
-            </Col>
-          </Row>
-          <hr style={{border: '1px solid #d9d9d9'}}/>
-        </>
+        <UserTransaction transaction={transaction}/>
       ))}
     </Container>
   );
 }
 
-const AddComment = ({transactionStatus, existComment, transactionId}) => {
-  if (transactionStatus !== 'SUCCESS') {
-    return null;
-  }
-  if (existComment) {
-    return (
-      <>
-        <Button variant="danger" href={"/schedules/" + transactionId} style={{position: 'absolute', bottom: 0, right: 0}}>Delete Review</Button>
-        <Button variant="success" href={"/schedules/" + transactionId} style={{position: 'absolute', bottom: 50, right: 0}}>Edit Review</Button>
-      </>
-    )
-  }
-  return (
-    <Button variant="primary" href={"/schedules/" + transactionId} style={{position: 'absolute', bottom: 0, right: 0}}>Add Review</Button>
-  )
-}
