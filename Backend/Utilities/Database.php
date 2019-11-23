@@ -100,6 +100,11 @@ class Database
         $this->execute($sqlStatement, $params);
     }
 
+    public function update($sqlStatement, array $params = [])
+    {
+        $this->execute($sqlStatement, $params);
+    }
+
     public function select($sqlStatement, array $params = [])
     {
         $this->execute($sqlStatement, $params);

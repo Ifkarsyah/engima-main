@@ -81,15 +81,17 @@ $privateRoute->mount('', function () use ($privateRoute) {
         $privateRoute->get('/(\d+)', function ($scheduleId) use ($scheduleController) {
             $scheduleController->getDetail($scheduleId);
         });
+        $privateRoute->put('/seat/', function () use($scheduleController) {
+            $scheduleController->updateSeats(getJsonBody());
+        });
     });
     $privateRoute->mount('reviews', function () use ($privateRoute) {
         $reviewsController = new Components\Reviews\ReviewsController();
         $privateRoute->post('/user/(\d+)/schedule/(\d+)', function ($userId, $scheduleId) use ($reviewsController) {
-            $comment = $_POST['comment'];
+            $comment = getJsonBody()['comment'];
             $reviewsController->addReview($userId, $scheduleId, $comment);
         });
         $privateRoute->delete('/(\d+)', function ($reviewId) use ($reviewsController) {
-            $comment = $_POST['comment'];
             $reviewsController->deleteReview($reviewId);
         });
     });
