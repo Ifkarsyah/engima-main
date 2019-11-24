@@ -87,12 +87,15 @@ $privateRoute->mount('', function () use ($privateRoute) {
     });
     $privateRoute->mount('reviews', function () use ($privateRoute) {
         $reviewsController = new Components\Reviews\ReviewsController();
-        $privateRoute->post('/user/(\d+)/schedule/(\d+)', function ($userId, $scheduleId) use ($reviewsController) {
-            $comment = getJsonBody()['comment'];
-            $reviewsController->addReview($userId, $scheduleId, $comment);
+        $privateRoute->post('/user/(\d+)/transaction/(\d+)', function ($userId, $transactionId) use ($reviewsController) {
+            $json = getJsonBody();
+            $movieId = $json['movieId'];
+            $comment = $json['comment'];
+            $rating = $json['rating'];
+            $reviewsController->addReview($transactionId, $userId, $movieId, $rating, $comment);
         });
-        $privateRoute->delete('/(\d+)', function ($reviewId) use ($reviewsController) {
-            $reviewsController->deleteReview($reviewId);
+        $privateRoute->delete('/(\d+)', function ($transactionId) use ($reviewsController) {
+            $reviewsController->deleteReview($transactionId);
         });
     });
 });
