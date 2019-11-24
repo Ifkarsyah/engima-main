@@ -39,11 +39,15 @@ MovieDetailSection.propTypes = {
   movie: PropTypes.shape({}),
   genres: PropTypes.string
 };
+
+
+
 export default function MovieDetail() {
   const {movieId} = useParams();
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState('');
   const [reviewMovieDB, setReviewMovieDB] = useState([]);
+  const [engimaReview, setEngimaReview] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
@@ -61,8 +65,14 @@ export default function MovieDetail() {
       const totalUrl2 = MovieDbAPI.baseUrl + '/movie/' + movieId + '/reviews' + `?api_key=${MovieDbAPI.apiKey}`;
       const response2 = await fetch(totalUrl2);
       const body2 = await response2.json();
-      console.log(body2);
-      setReviewMovieDB(body2.results);
+      setReviewMovieDB(body2.results.slice(0,3));
+
+      const totalUrl3 = Engima.baseUrl + '/movies/' + movieId + '/reviews';
+      const response3 = await fetch(totalUrl3);
+      const body3 = await response3.json();
+      console.log(body3);
+      setEngimaReview(body3.results);
+
       setLoaded(true);
     })();
   }, []);
@@ -85,13 +95,29 @@ export default function MovieDetail() {
         <Col xs={5}>
           <Card style={{border: '3px solid #d9d9d9'}}>
             <Card.Body className="bg-white">
-              <h4 className="font-weight-bold text-center">Review</h4>
+              <h4 className="font-weight-bold text-center">MovieDB Review</h4>
               {reviewMovieDB.map(review => (
                 <>
                   <Card style={{border: '3px solid white'}} key={review['id']} className="my-1">
                     <Card.Body className="bg-white">
                       <h6 className="font-weight-bold text-primary">{review['author']}</h6>
                       <p>{review['content'].substring(0, 60)} ... </p>
+                    </Card.Body>
+                  </Card>
+                  <hr style={{border: "1px solid #d9d9d9"}}/>
+                </>
+              ))}
+            </Card.Body>
+          </Card>
+          <Card style={{border: '3px solid #d9d9d9'}} className="my-3">
+            <Card.Body className="bg-white">
+              <h4 className="font-weight-bold text-center">Engima Review</h4>
+              {engimaReview.map(review => (
+                <>
+                  <Card style={{border: '3px solid white'}} key={review['id']} className="my-1">
+                    <Card.Body className="bg-white">
+                      <h6 className="font-weight-bold text-primary">{review['username']}</h6>
+                      <p>{review['comment'].substring(0, 60)} ... </p>
                     </Card.Body>
                   </Card>
                   <hr style={{border: "1px solid #d9d9d9"}}/>
@@ -145,10 +171,10 @@ function MovieScheduleList({movieId, movieReleaseDate, title}) {
         <Table responsive className="text-secondary">
           <thead>
           <tr>
-            <th>Date</th>
-            <th>Time</th>
-            <th>Available Seats</th>
-            <th>&nbsp;</th>
+            <th style={{borderTopColor: "white"}}>Date</th>
+            <th style={{borderTopColor: "white"}}>Time</th>
+            <th style={{borderTopColor: "white"}}>Available Seats</th>
+            <th style={{borderTopColor: "white"}}>&nbsp;</th>
           </tr>
           </thead>
           <tbody>

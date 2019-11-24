@@ -62,16 +62,13 @@ class MoviesServices extends BaseModel
      */
     public function getListReviewByMovieID($movieID)
     {
-        $result = $this->db->execute(
-            "SELECT u.username, u.profile_pic, rating, comment
-                         FROM 
-                              reviews r JOIN transactions t on r.transaction_id = t.id 
-                                        JOIN users u on t.user_id = u.id
+        return $this->db->select(
+            "SELECT u.username, r.comment, r.rating, u.id
+                         FROM reviews as r JOIN users u ON r.userId = u.id
                          WHERE r.movie_id = :movieID
                          ORDER BY rating DESC 
                          LIMIT 3",
             ['movieID' => $movieID]
         );
-        return $result->getQueryResult();
     }
 }
