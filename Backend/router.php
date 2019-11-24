@@ -85,8 +85,11 @@ $privateRoute->mount('', function () use ($privateRoute) {
             $scheduleController->updateSeats($scheduleId, getJsonBody());
         });
     });
-    $privateRoute->mount('reviews', function () use ($privateRoute) {
+    $privateRoute->mount('/reviews', function () use ($privateRoute) {
         $reviewsController = new Components\Reviews\ReviewsController();
+        $privateRoute->get('/(\d+)', function ($transactionId) use ($reviewsController) {
+            $reviewsController->isExistsReview($transactionId);
+        });
         $privateRoute->post('/user/(\d+)/transaction/(\d+)', function ($userId, $transactionId) use ($reviewsController) {
             $json = getJsonBody();
             $movieId = $json['movieId'];

@@ -58,7 +58,7 @@ function Switcher() {
         </GeneralPage>
       </Route>
 
-      <Route path="/review/:transactionId">
+      <Route path="/reviews/:transactionId">
         <GeneralPage title="Review">
           <ReviewPage/>
         </GeneralPage>
