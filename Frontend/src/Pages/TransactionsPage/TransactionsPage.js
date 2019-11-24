@@ -71,7 +71,6 @@ export default function TransactionsPage() {
               body: JSON.stringify({status: updateStatusRequest})
             });
             const bodyNode = await responseNode2.json();
-            console.log(bodyNode);
 
             if (updateStatusRequest === "CANCELLED") {
               const respEngima = await fetch(Engima.baseUrl + '/schedules/' + scheduleId + '/seat', {
@@ -86,7 +85,6 @@ export default function TransactionsPage() {
                 })
               });
               const bodyEngimaSeat = await respEngima.json();
-              console.log(bodyEngimaSeat);
             }
           }
         }

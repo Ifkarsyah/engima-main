@@ -70,7 +70,6 @@ export default function MovieDetail() {
       const totalUrl3 = Engima.baseUrl + '/movies/' + movieId + '/reviews';
       const response3 = await fetch(totalUrl3);
       const body3 = await response3.json();
-      console.log(body3);
       setEngimaReview(body3.results);
 
       setLoaded(true);
@@ -159,9 +158,7 @@ function MovieScheduleList({movieId, movieReleaseDate, title}) {
           }
           setScheduleList(body);
         }
-      } catch (e) {
-        console.log(e);
-      }
+      } catch (e) {}
     })();
   }, [movieReleaseDate]);
   return (
