@@ -5,7 +5,7 @@ export const WS_Bank = {
 }
 
 export async function soapCall(soapEnvelop) {
-  const urlWSBank = 'http://localhost:8080/ws-bank/Bank?WSDL';
+  const urlWSBank = 'http://ec2-3-85-110-209.compute-1.amazonaws.com:8080/ws-bank/Bank?WSDL';
   const responseWSBank = await fetch(urlWSBank, {
     method: 'POST',
     headers: {
