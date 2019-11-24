@@ -50,7 +50,7 @@ class UserController extends BaseController
         echo $requestBody;
     }
 
-    public function getUsername($token)
+    public function getLoggedInUser($token)
     {
         if (!isset($token))
         {
@@ -60,7 +60,8 @@ class UserController extends BaseController
         $decoded = JWT::decode($token, ENGIMA_TOKEN_SECRET, array('HS256'));
         http_response_code(200);
         echo json_encode(array(
-           'username' => $decoded->username
+           'username' => $decoded->username,
+            'userId' => $decoded->sub
         ));
     }
 }

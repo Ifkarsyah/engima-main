@@ -8,7 +8,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
-import cookies from "../../Utilities/Cookies";
 import {Engima} from "../../Utilities/Engima";
 import * as PropTypes from "prop-types";
 

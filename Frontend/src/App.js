@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Switch from "react-bootstrap/cjs/Switch";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import GeneralPage from "./Pages/GeneralPage";

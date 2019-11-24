@@ -14,4 +14,4 @@ export function MovieRating({rating}) {
   </div>;
 }
 
-MovieRating.propTypes = {rating: PropTypes.string};
+MovieRating.propTypes = {rating: PropTypes.number};
