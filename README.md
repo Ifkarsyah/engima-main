@@ -40,7 +40,7 @@ Pada halaman **User Review**, pengguna dapat memberikan review film yang pernah 
 7.Search:
   ![](doc/search.png)
   
-## PEMBAGIAN TUGAS 2
+## PEMBAGIAN TUGAS 2 WBD
 
 ### React - Bank Pro:
 1. Login Form: 13517024
@@ -66,3 +66,8 @@ Pada halaman **User Review**, pengguna dapat memberikan review film yang pernah 
 3. Detail Page, tambah rating dari MovieDB API: 13517024
 4. Buy Ticket Page: 13517024
 5. Transaction History, ambil dari WS Transaksi: 13517024
+
+
+## PEMBAGIAN TUGAS 2 DPPL
+1. Explorasi CI/CD: 13517024 - gitlab_runner error, issue: [4449](https://gitlab.com/gitlab-org/gitlab-runner/issues/4449)
+2. Eksplorasi dan setup mesin deployment: 13517024
