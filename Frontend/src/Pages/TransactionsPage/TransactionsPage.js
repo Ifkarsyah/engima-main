@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {moviedb_GetMovieDetail} from "../../Utilities/MovieDB";
 import Container from "react-bootstrap/Container";
-import {getUserIdFromEngima} from "../../Utilities/Engima";
+import {getUser} from "../../Utilities/Engima";
 import {WS_Transaksi} from "../../Utilities/WS_Transaksi";
 import {soapCall} from "../../Utilities/WS_Bank";
 import {UserTransaction} from "./UserTransaction";
@@ -12,10 +12,12 @@ export default function TransactionsPage() {
 
   useEffect(() => {
     (async () => {
-      let userId = await getUserIdFromEngima();
+      let user = await getUser();
 
-      const responseWS_Transaksi = await fetch(WS_Transaksi.baseUrl + '/transaction/' + userId);
+      const responseWS_Transaksi = await fetch(WS_Transaksi.baseUrl + '/transaction/' + user.userId);
       const userTransactions = await responseWS_Transaksi.json();
+
+
       for (let i = 0; i < userTransactions.length; i++){
         // for each transaction found, get the title f
         const movieDetail = await moviedb_GetMovieDetail(userTransactions[i]['movie_id']);
@@ -24,30 +26,30 @@ export default function TransactionsPage() {
 
         // check
         const transactionId = userTransactions[i]['id'];
-        const transactionTime = Date.parse(userTransactions[i]['created_on']);
+        const transactionTime = Math.floor(Date.parse(userTransactions[i]['created_on'])/1000);
+
+
+        // for each pending status
         const virtual_account = userTransactions[i]['va_receiver'];
-
-
         if (userTransactions[i]['status'] === 'PENDING') {
+
           const xmlResp = await soapCall(
-            '<?xml version="1.0" encoding="UTF-8"?><soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">\n' +
-            '    <soap:Body>\n' +
-            '        <ns0:isExistTransaction xmlns:ns0="http://wsbank.org/">\n' +
+            '<?xml version="1.0" encoding="UTF-8"?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">\n' +
+            '    <SOAP-ENV:Header/>\n' +
+            '    <S:Body>\n' +
+            '        <ns2:isExistTransaction xmlns:ns2="http://wsbank.org/">\n' +
+            `            <username>${user.username}</username>\n` +
             `            <billReceiver>${virtual_account}</billReceiver>\n` +
-            `            <billSender>${10000001}</billSender>\n` +
             `            <amount>${45000}</amount>\n` +
-            `            <startTime>${transactionTime - 1}</startTime>\n` +
-            `            <endTime>${transactionTime + 1200000000000000}</endTime>\n` +
-            '        </ns0:isExistTransaction>\n' +
-            '    </soap:Body>\n' +
-            '</soap:Envelope>\n'
+            `            <startTime>${transactionTime}</startTime>\n` +
+            `            <endTime>${transactionTime + 120}</endTime>\n` +
+            '        </ns2:isExistTransaction>\n' +
+            '    </S:Body>\n' +
+            '</S:Envelope>\n'
           );
           const isExist = xmlResp.find("return").text();
           let updateStatusRequest = "PENDING";
-          console.log('isExist', isExist);
-          console.log(transactionTime);
-          console.log('minute', Date.now() - transactionTime);
-          if (Date.now() - transactionTime <= 1200000) {
+          if (Math.floor(Date.now()/1000) - transactionTime <= 120) {
             if (isExist === "true") {
               updateStatusRequest = "SUCCESS";
             }
