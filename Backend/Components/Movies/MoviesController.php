@@ -32,19 +32,13 @@ class MoviesController extends BaseController
 
     public function getReviewUser($movieId)
     {
-        return array(
-            1 => array(
-                'userProfile' => 'https://picsum.photos/200',
-                'username' => 'Minato',
-                'rating' => 8,
-                'comment' => 'good evening',
-            ),
-            2 => array(
-                'userProfile' => 'https://picsum.photos/200',
-                'username' => 'Minato',
-                'rating' => 8,
-                'comment' => 'good evening',
-            ),
-        );
+        $reviewList = $this->services->getListReviewByMovieID($movieId);
+        if (empty($reviewList)) {
+            http_response_code(200);
+            echo json_encode(array('results' => []));
+        } else {
+            http_response_code(200);
+            echo json_encode(array('results' => $reviewList));
+        };
     }
 }

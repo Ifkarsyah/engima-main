@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {moviedb_GetMovieDetail} from "../../Utilities/MovieDB";
 import Container from "react-bootstrap/Container";
-import {getUser} from "../../Utilities/Engima";
+import {Engima, getUser} from "../../Utilities/Engima";
 import {WS_Transaksi} from "../../Utilities/WS_Transaksi";
 import {soapCall} from "../../Utilities/WS_Bank";
 import {UserTransaction} from "./UserTransaction";
@@ -27,7 +27,8 @@ export default function TransactionsPage() {
         // check
         const transactionId = userTransactions[i]['id'];
         const transactionTime = Math.floor(Date.parse(userTransactions[i]['created_on'])/1000);
-
+        const scheduleId = userTransactions[i]['schedule_id'];
+        const seat = userTransactions[i]['seat'];
 
         // for each pending status
         const virtual_account = userTransactions[i]['va_receiver'];
@@ -60,6 +61,7 @@ export default function TransactionsPage() {
           }
 
           if (updateStatusRequest !== "PENDING") {
+
             const responseNode2 = await fetch(WS_Transaksi.baseUrl + '/transaction/' + transactionId, {
               method: 'PUT',
               headers: {
@@ -70,6 +72,22 @@ export default function TransactionsPage() {
             });
             const bodyNode = await responseNode2.json();
             console.log(bodyNode);
+
+            if (updateStatusRequest === "CANCELLED") {
+              const respEngima = await fetch(Engima.baseUrl + '/schedules/' + scheduleId + '/seat', {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json;charset=UTF-8',
+                },
+                body: JSON.stringify({
+                  'action': 'release',
+                  'seat': seat,
+                })
+              });
+              const bodyEngimaSeat = await respEngima.json();
+              console.log(bodyEngimaSeat);
+            }
           }
         }
       }

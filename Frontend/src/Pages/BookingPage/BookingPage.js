@@ -75,6 +75,7 @@ export default function BookingPage() {
       },
       body: JSON.stringify({
         userId: userId,
+        scheduleId: scheduleId,
         movieId: urlQueries['movieId'],
         seat: selectedSeat,
         vaReceiver: vaReceiver,

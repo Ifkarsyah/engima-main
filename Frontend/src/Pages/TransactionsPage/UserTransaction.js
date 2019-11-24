@@ -17,7 +17,8 @@ export function UserTransaction(props) {
     <>
       <Row className="my-4">
         <Col xs={2}>
-          <Image src={MovieDbAPI.baseUrlImage + props.transaction["poster_path"]} rounded fluid style={{width: "154px"}}/>
+          <Image src={MovieDbAPI.baseUrlImage + props.transaction["poster_path"]} rounded fluid
+                 style={{width: "154px"}}/>
         </Col>
         <Col xs={6} className="d-flex flex-column justify-content-center">
           <h5 className="font-weight-bolder">{props.transaction["title"]}</h5>
@@ -32,8 +33,9 @@ export function UserTransaction(props) {
           <TransactionStatus status={props.transaction["status"]}/>
         </Col>
         <Col xs={4} className="position-relative">
-          <AddComment transactionStatus={props.transaction["status"]} existsComment={true}
-                      transactionId={props.transaction["id"]}/>
+          <AddComment movieId={props.transaction['movie_id']}
+                      transactionStatus={props.transaction["status"]}
+                      transactionId={props.transaction["id"]} movieTitle={props.transaction["title"]} movieSchedule={props.transaction["movie_schedule"]}/>
         </Col>
       </Row>
       <hr style={{border: "1px solid #d9d9d9"}}/>

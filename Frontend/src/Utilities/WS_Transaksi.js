@@ -1,3 +1,3 @@
 export const WS_Transaksi = {
-  baseUrl: 'http://localhost:5000'
+  baseUrl: 'http://52.90.73.93:5000'
 };
