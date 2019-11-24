@@ -10,6 +10,7 @@ import Card from "react-bootstrap/Card";
 import Table from "react-bootstrap/Table";
 import {Engima} from "../../Utilities/Engima";
 import * as PropTypes from "prop-types";
+import Button from "react-bootstrap/Button";
 
 function MovieDetailSection(props) {
   return <>
@@ -42,6 +43,8 @@ export default function MovieDetail() {
   const {movieId} = useParams();
   const [movie, setMovie] = useState({});
   const [genres, setGenres] = useState('');
+  const [reviewMovieDB, setReviewMovieDB] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -53,8 +56,21 @@ export default function MovieDetail() {
       setMovie(body);
       let bodyGenreString = body['genres'].map(genre => genre['name']);
       setGenres(bodyGenreString.join(' | '));
+
+
+      const totalUrl2 = MovieDbAPI.baseUrl + '/movie/' + movieId + '/reviews' + `?api_key=${MovieDbAPI.apiKey}`;
+      const response2 = await fetch(totalUrl2);
+      const body2 = await response2.json();
+      console.log(body2);
+      setReviewMovieDB(body2.results);
+      setLoaded(true);
     })();
   }, []);
+
+  if (!loaded) {
+    return <p>Loading...</p>
+  }
+
   return (
     <Container fluid={true}>
       <Row className="mb-5">
@@ -69,7 +85,18 @@ export default function MovieDetail() {
         <Col xs={5}>
           <Card style={{border: '3px solid #d9d9d9'}}>
             <Card.Body className="bg-white">
-              <h4 className="font-weight-bold">Review</h4>
+              <h4 className="font-weight-bold text-center">Review</h4>
+              {reviewMovieDB.map(review => (
+                <>
+                  <Card style={{border: '3px solid white'}} key={review['id']} className="my-1">
+                    <Card.Body className="bg-white">
+                      <h6 className="font-weight-bold text-primary">{review['author']}</h6>
+                      <p>{review['content'].substring(0, 60)} ... </p>
+                    </Card.Body>
+                  </Card>
+                  <hr style={{border: "1px solid #d9d9d9"}}/>
+                </>
+              ))}
             </Card.Body>
           </Card>
         </Col>
@@ -84,16 +111,15 @@ function MovieScheduleList({movieId, movieReleaseDate, title}) {
   useEffect(() => {
     (async () => {
       try {
-        if (movieReleaseDate !== undefined)
-        {
+        if (movieReleaseDate !== undefined) {
           const pathUrl = '/movies/' + movieId + '/schedules';
           const totalUrl = Engima.baseUrl + pathUrl + '?release_date=' + movieReleaseDate;
           const response = await fetch(totalUrl);
           const body = await response.json();
-          for (let i = 0; i < body.length; i++){
+          for (let i = 0; i < body.length; i++) {
             const d = new Date(body[i]['date_time']);
             body[i]['date'] = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
-            body[i]['time'] = d.toLocaleString([], { hour: 'numeric', minute: 'numeric', hour12: true });
+            body[i]['time'] = d.toLocaleString([], {hour: 'numeric', minute: 'numeric', hour12: true});
 
             const seatString = body[i]['seats'];
             const seatInteger = parseInt(seatString);
@@ -133,7 +159,7 @@ function MovieScheduleList({movieId, movieReleaseDate, title}) {
               <td>{schedule['availableSeats']}</td>
               <td className="text-primary font-weight-bolder">
                 <Link to={"/booking/" + schedule['schedule_id'] + '?title=' + title + '&movieId=' + movieId}>
-                  <span className="mr-2" style={{ textDecoration: 'none' }}>Book Now</span>
+                  <span className="mr-2" style={{textDecoration: 'none'}}>Book Now</span>
                   <span className="bg-primary text-white rounded-circle h-100 vh-100">
                 &nbsp;&#8250;&nbsp;
               </span>
