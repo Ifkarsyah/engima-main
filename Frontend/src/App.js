@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router, Redirect, Route} from "react-router-dom";
+import {BrowserRouter as Router, Route} from "react-router-dom";
 import Switch from "react-bootstrap/cjs/Switch";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import GeneralPage from "./Pages/GeneralPage";
@@ -12,10 +12,13 @@ import ReviewPage from "./Pages/ReviewPage/ReviewPage";
 import BookingPage from "./Pages/BookingPage/BookingPage";
 import GeneralForm from "./Components/Navbar/GeneralForm";
 import SearchPage from "./Pages/SearchPage/SearchPage";
+import {useHistory} from "react-router";
 
 function Switcher() {
   return (
     <Switch className="h-100 w-100 pl-0">
+
+
       <Route path="/login">
         <GeneralForm title="Welcome to Engima">
           <LoginPage/>
@@ -58,7 +61,7 @@ function Switcher() {
         </GeneralPage>
       </Route>
 
-      <Route path="/review/:transactionId">
+      <Route path="/reviews/:transactionId">
         <GeneralPage title="Review">
           <ReviewPage/>
         </GeneralPage>

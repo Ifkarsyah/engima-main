@@ -56,9 +56,9 @@ $privateRoute->before('GET|POST|UPDATE|DELETE', '/.*', function() {
 });
 
 
-$privateRoute->get('/user/username', function () use ($privateRoute){
+$privateRoute->get('/user/logged', function () use ($privateRoute){
     $userRoute = new Components\User\UserController();
-    $userRoute->getUsername($_GET['token']);
+    $userRoute->getLoggedInUser($_GET['token']);
 });
 
 $privateRoute->mount('', function () use ($privateRoute) {
@@ -81,16 +81,24 @@ $privateRoute->mount('', function () use ($privateRoute) {
         $privateRoute->get('/(\d+)', function ($scheduleId) use ($scheduleController) {
             $scheduleController->getDetail($scheduleId);
         });
-    });
-    $privateRoute->mount('reviews', function () use ($privateRoute) {
-        $reviewsController = new Components\Reviews\ReviewsController();
-        $privateRoute->post('/user/(\d+)/schedule/(\d+)', function ($userId, $scheduleId) use ($reviewsController) {
-            $comment = $_POST['comment'];
-            $reviewsController->addReview($userId, $scheduleId, $comment);
+        $privateRoute->post('/(\d+)/seat/', function ($scheduleId) use($scheduleController) {
+            $scheduleController->updateSeats($scheduleId, getJsonBody());
         });
-        $privateRoute->delete('/(\d+)', function ($reviewId) use ($reviewsController) {
-            $comment = $_POST['comment'];
-            $reviewsController->deleteReview($reviewId);
+    });
+    $privateRoute->mount('/reviews', function () use ($privateRoute) {
+        $reviewsController = new Components\Reviews\ReviewsController();
+        $privateRoute->get('/(\d+)', function ($transactionId) use ($reviewsController) {
+            $reviewsController->isExistsReview($transactionId);
+        });
+        $privateRoute->post('/user/(\d+)/transaction/(\d+)', function ($userId, $transactionId) use ($reviewsController) {
+            $json = getJsonBody();
+            $movieId = $json['movieId'];
+            $comment = $json['comment'];
+            $rating = $json['rating'];
+            $reviewsController->addReview($transactionId, $userId, $movieId, $rating, $comment);
+        });
+        $privateRoute->delete('/(\d+)', function ($transactionId) use ($reviewsController) {
+            $reviewsController->deleteReview($transactionId);
         });
     });
 });

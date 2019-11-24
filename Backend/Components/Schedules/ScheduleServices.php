@@ -19,4 +19,24 @@ class ScheduleServices extends BaseModel
         );
         return $dbResult;
     }
+
+    public function reserve($scheduleId, $seat)
+    {
+        $this->db->update(
+            "UPDATE schedules
+                         SET seats = (seats & (~(1 << (30 - $seat))))
+                         WHERE id = :scheduleId",
+            [':scheduleId' => $scheduleId]
+        );
+    }
+
+    public function release($scheduleId, $seat)
+    {
+        $this->db->update(
+            "UPDATE schedules
+                         SET seats = (seats | (1 << (30 - $seat)))
+                         WHERE id = :scheduleId",
+            [':scheduleId' => $scheduleId]
+        );
+    }
 }
