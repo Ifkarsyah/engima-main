@@ -12,10 +12,13 @@ import ReviewPage from "./Pages/ReviewPage/ReviewPage";
 import BookingPage from "./Pages/BookingPage/BookingPage";
 import GeneralForm from "./Components/Navbar/GeneralForm";
 import SearchPage from "./Pages/SearchPage/SearchPage";
+import {useHistory} from "react-router";
 
 function Switcher() {
   return (
     <Switch className="h-100 w-100 pl-0">
+
+
       <Route path="/login">
         <GeneralForm title="Welcome to Engima">
           <LoginPage/>
