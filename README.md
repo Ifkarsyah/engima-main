@@ -1,6 +1,7 @@
 # TUGAS 2 IF3110 PENGEMBANGAN APLIKASI BERBASIS WEB
 # Engima
-
+[Link Frontend](http://ec2-3-87-4-217.compute-1.amazonaws.com:3000/login)
+[Link Backend](http://ec2-3-87-4-217.compute-1.amazonaws.com/engima/Backend/)
 ## Deskripsi Aplikasi Web
 Engima adalah aplikasi pemesanan tiket bioskop. Pada halaman **Home**, pengguna disambut dengan "Hello, *username*" dan daftar film yang sedang tayang. Pada halaman **Search Result**, untuk setiap film, ditampilkan informasi judul, sinopsis, rating, poster. Pengguna dapat melihat detail film dengan mengklik tombol “View details”. Ketika memilih *page*, pengguna tidak diarahkan ke halaman baru namun daftar film langsung berubah di halaman search saat itu.
 Pada halaman **Film Detail** terdapat beberapa informasi mengenai film yang dipilih, yaitu judul, poster, rating, genre (bisa lebih dari satu), tanggal rilis, durasi tayang (dalam menit), dan sinopsis dari film tersebut.
