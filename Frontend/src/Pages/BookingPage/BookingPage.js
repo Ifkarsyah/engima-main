@@ -98,7 +98,6 @@ export default function BookingPage() {
       })
     });
     const bodyEngimaSeat = await respEngima.json();
-    console.log(bodyEngimaSeat);
 
     setVaReceiver(vaReceiver);
     setTransactionId(transactionId);

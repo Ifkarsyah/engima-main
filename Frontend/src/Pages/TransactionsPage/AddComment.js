@@ -18,7 +18,6 @@ export const AddComment = ({transactionStatus, transactionId, movieId, movieTitl
       },
     });
     const bodyEngimaResp = await respEngima.json();
-    console.log(bodyEngimaResp);
     setExistsComment(false);
   };
 
